@@ -24,26 +24,24 @@ import java.util.Optional;
 public class CustomUserDetailsService implements UserDetailsService {
 
     private final MemberRepository memberRepository;
+
     @Override
-    @Transactional  // UserDetails 와 Authentication 의 패스워드를 비교하고 검증하는 로직
+    @Transactional  // UserDetails 와 Authentication 의 패스워드를 비교하고 검증하는 로직 ( 로그인)
     public UserDetails loadUserByUsername(String email) throws UsernameNotFoundException {
 
-        return memberRepository.findByEmail(email)
-                .map(this::createMember)
-                .orElseThrow(() -> new UsernameNotFoundException(email + "데이터 베이스에 없음"));
+        Optional<Member> findMember = memberRepository.findByEmail(email);
+        if(findMember.isPresent()){
+            Member member = findMember.get();
+
+           log.info("memberDetails 저장 ={}",member.getEmail());
+
+            return new MemberDetailsImpl(member);
+        }else {
+            throw new UsernameNotFoundException(email + "데이터 베이스에 없음");
+        }
+
     }
 
-//     DB 에 User 값이 존재한다면 UserDetails 객체로 만들어서 리턴
-    private UserDetails createMember(Member member) {
-        GrantedAuthority grantedAuthority = new SimpleGrantedAuthority(member.getMemberRole().toString());
-
-
-        return new User(
-                String.valueOf(member.getId()),
-                member.getPassword(),
-                Collections.singleton(grantedAuthority)
-        );
-    }
 
    
 }

@@ -3,6 +3,7 @@ package son.roomshare.config.security.jwt;
 import io.jsonwebtoken.*;
 import io.jsonwebtoken.io.Decoders;
 import io.jsonwebtoken.security.Keys;
+import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -15,6 +16,8 @@ import org.springframework.security.core.GrantedAuthority;
 import org.springframework.stereotype.Component;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.userdetails.User;
+import son.roomshare.domain.member.MemberDetailsImpl;
+import son.roomshare.service.CustomUserDetailsService;
 
 
 import java.security.Key;
@@ -34,12 +37,16 @@ public class TokenProvider {
     private static final long ACCESS_TOKEN_EXPIRE_TIME = 1000 * 60 * 30;            // 30분
     private static final long REFRESH_TOKEN_EXPIRE_TIME = 1000 * 60 * 60 * 24 * 7;  // 7일
 
+    private final CustomUserDetailsService detailsService;
+
     private final Key key;
 
     @Autowired
-    public TokenProvider(@Value("${jwt.secret}") String secretKey) {
+    public TokenProvider(@Value("${jwt.secret}") String secretKey
+                                , CustomUserDetailsService detailsService) {
         byte[] keyBytes = Decoders.BASE64.decode(secretKey);
         this.key = Keys.hmacShaKeyFor(keyBytes);
+        this.detailsService = detailsService;
     }
 
 
@@ -92,10 +99,15 @@ public class TokenProvider {
                         .map(SimpleGrantedAuthority::new)
                         .collect(Collectors.toList());
 
-        // UserDetails 객체를 만들어서 Authentication 리턴
-        User principal = new User(claims.getSubject(),"", authorities);
+        // OLD - UserDetails 객체를 만들어서 Authentication 리턴
+        // User principal = new User(claims.getSubject(),"", authorities);
+        // return new UsernamePasswordAuthenticationToken(principal, token, authorities);
 
-        return new UsernamePasswordAuthenticationToken(principal, token, authorities);
+        // NEW -
+        // UserDetailsService 를 통해 DB에서 username 으로 사용자 조회
+        MemberDetailsImpl memberDetails = (MemberDetailsImpl) detailsService.loadUserByUsername(claims.getSubject());
+
+        return new UsernamePasswordAuthenticationToken(memberDetails, token, memberDetails.getAuthorities());
 
     }
 

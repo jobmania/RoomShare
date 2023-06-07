@@ -1,6 +1,7 @@
 package son.roomshare.controller;
 
 import lombok.RequiredArgsConstructor;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -14,6 +15,7 @@ import son.roomshare.service.MemberService;
 import son.roomshare.utils.SecurityUtil;
 
 @RestController
+@Slf4j
 @RequiredArgsConstructor
 @RequestMapping("/api/member")
 public class TestController {
@@ -21,7 +23,7 @@ public class TestController {
 
     @GetMapping("/me")
     public ResponseEntity<MemberResponseDto> findMemberInfoById() {
-        return ResponseEntity.ok(memberService.findMemberInfoById(SecurityUtil.getCurrentMemberId()));
+        return ResponseEntity.ok(memberService.findMemberInfoByEmail(SecurityUtil.getCurrentMemberId()));
     }
 
     @GetMapping("/{email}")
@@ -30,9 +32,11 @@ public class TestController {
     }
 
     @GetMapping("/pass")
-    public ResponseEntity<MemberResponseDto> findMember(@AuthenticationPrincipal MemberDetailsImpl memberDetails) {
+    public ResponseEntity<MemberResponseDto> findMember( @AuthenticationPrincipal MemberDetailsImpl memberDetails) {
+        log.info("memberDetails ={}",memberDetails.getMember().getEmail());
         Member member = memberDetails.getMember();
         return ResponseEntity.ok(memberService.findMemberInfoByEmail(member.getEmail()));
+
     }
 
 }

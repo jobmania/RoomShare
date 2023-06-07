@@ -77,6 +77,7 @@ public class MemberService {
                 .build();
 
         refreshTokenRepository.save(refreshToken);
+       // ++ 헤더에 토큰 값 추가!
         response.setHeader("Authorization","Bearer "+ tokenDto.getAccessToken());
         response.setHeader("Refresh_Token",tokenDto.getRefreshToken());
         // 5. 토큰 발급

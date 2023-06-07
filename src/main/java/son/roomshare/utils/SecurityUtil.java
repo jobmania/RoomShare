@@ -16,13 +16,13 @@ public class SecurityUtil {
      * SecurityContext 는 ThreadLocal 에 사용자의 정보를 저장합니다.
      *  memberId -> Long 타입으로 파싱하여 반환
      * */
-    public static Long getCurrentMemberId() {
+    public static String getCurrentMemberId() {
         final Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
 
         if (authentication == null || authentication.getName() == null) {
             throw  new RuntimeException("Security Context 에 인증 정보가 없습니다.");
         }
 
-        return Long.parseLong(authentication.getName());
+        return authentication.getName();
     }
 }

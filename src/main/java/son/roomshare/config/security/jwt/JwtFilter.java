@@ -32,24 +32,7 @@ public class JwtFilter extends OncePerRequestFilter {
         this.tokenProvider = tokenProvider;
     }
 
-//    @Override // 실제 필터링 로직. jwt 토큰의 인증정보를 security context 저장하는 역할, 제일 중요!!!
-//    public void doFilterInternal(ServletRequest servletRequest, ServletResponse servletResponse, FilterChain filterChain) throws IOException, ServletException {
-//        HttpServletRequest httpServletRequest = (HttpServletRequest) servletRequest;
-//        String jwt = resolveToken(httpServletRequest);
-//        String requestURI = httpServletRequest.getRequestURI();
-//
-//
-//        if(StringUtils.hasText(jwt)&& tokenProvider.validateToken(jwt)){
-//            Authentication authentication = tokenProvider.getAuthentication(jwt);
-//            // 유저 저장.
-//            SecurityContextHolder.getContext().setAuthentication(authentication);
-//            logger.debug("Security Context, Member_ID ='{}' 인증정보 저장 및 조회 , uri= {} ",authentication.getName(),requestURI);
-//        }else {
-//            logger.debug("통과 url : {} ",requestURI);
-//        }
-//        filterChain.doFilter(servletRequest, servletResponse);
-//
-//    }
+
 
     private String resolveToken(HttpServletRequest request){ // 토큰정보 획득
         String bearerToken = request.getHeader(AUTHORIZATION_HEADER);
