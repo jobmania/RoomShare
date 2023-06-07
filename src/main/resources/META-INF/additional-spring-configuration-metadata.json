@@ -1,0 +1,13 @@
+{
+  "properties": [
+    {
+      "name": "spring.logging.level.son.roomshare",
+      "type": "java.lang.String",
+      "description": "Description for spring.logging.level.son.roomshare."
+    },
+    {
+      "name": "spring.jwt.secret",
+      "type": "java.lang.String",
+      "description": "Description for spring.jwt.secret."
+    }
+  ] }

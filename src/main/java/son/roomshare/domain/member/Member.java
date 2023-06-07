@@ -1,5 +1,6 @@
 package son.roomshare.domain.member;
 
+import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import org.springframework.security.crypto.password.PasswordEncoder;
@@ -11,22 +12,19 @@ import javax.persistence.*;
 @NoArgsConstructor
 public class Member {
     @Id
+    @Column(name = "member_id")
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
     /**
      * memberName = 유저 아이디
-     * */
-    @Column(unique = true)
-    private String memberName;
-
-    @Column(unique = true)
-    private String nickName;
-
-    /**
      * 회원 검증용 email
      * */
     @Column(unique = true)
     private String email;
+
+    @Column(unique = true)
+    private String nickName;
 
 
     @Column(unique = true)
@@ -41,11 +39,11 @@ public class Member {
     /**
      * 회원 가입
      * */
-    public Member(String memberName, String nickName, String email, String password, MemberRole memberRole, PasswordEncoder passwordEncoder) {
-        this.memberName = memberName;
-        this.nickName = nickName;
+    @Builder
+    public Member(String email, String password, MemberRole memberRole) {
         this.email = email;
-        this.password = passwordEncoder.encode(password);
+        this.password = password;
         this.memberRole = memberRole;
     }
+
 }
