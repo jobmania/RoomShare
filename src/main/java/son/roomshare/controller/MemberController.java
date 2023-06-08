@@ -1,6 +1,7 @@
 package son.roomshare.controller;
 
 import lombok.RequiredArgsConstructor;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.validation.BindingResult;
@@ -14,6 +15,7 @@ import son.roomshare.domain.member.dto.SignUpMemberRequestDto;
 import son.roomshare.service.MemberService;
 
 @Controller
+@Slf4j
 @RequiredArgsConstructor
 @RequestMapping("/member")
 public class MemberController {
@@ -22,21 +24,20 @@ public class MemberController {
 
     @GetMapping("/auth/signup")
     public String signUpForm(@ModelAttribute("member") SignUpMemberRequestDto dto){
-
         return "login/signForm";
     }
 
-    /*
-    * 일반 사용자
-    * */
+
     @PostMapping("/auth/signup")
-    public String signUp(@Validated SignUpMemberRequestDto dto, BindingResult bindingResult){
-        MemberResponseDto signup = memberService.signup(dto);
+    public String signUp(@Validated @ModelAttribute("member")SignUpMemberRequestDto dto, BindingResult bindingResult){
+
 
         if(bindingResult.hasErrors()){
+            log.error("bindingResult ={}",bindingResult.getTarget()); // 잘들고오며, error 처리가 필요해~
             return "login/signForm";
-
         }
+
+        memberService.signup(dto);
         return "home";
     }
 

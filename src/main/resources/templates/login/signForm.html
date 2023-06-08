@@ -52,7 +52,7 @@
             <div th:each="type, status : ${memberType}" class="form-check form-check-inline">
                 <input type="radio" th:field="*{memberRole}" th:value="${type.name()}" class="form-check-input">
                 <label th:for="${'memberType_' + status.index}" th:text="${type.name()}" class="form-check-label">
-                    종류종류~
+                    빈칸
                 </label>
             </div>
         </div>
