@@ -1,11 +1,15 @@
 package son.roomshare.domain.member.dto;
 
 import lombok.Data;
+import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
+import org.springframework.security.crypto.password.PasswordEncoder;
+import son.roomshare.domain.member.Member;
 import son.roomshare.domain.member.MemberRole;
 
 import javax.validation.constraints.*;
 
 @Data
+
 public class SignUpMemberRequestDto {
 
     @Email
@@ -20,8 +24,20 @@ public class SignUpMemberRequestDto {
     @Pattern(regexp="[a-zA-Z1-9]{6,12}", message = "비밀번호는 영어와 숫자로 포함해서 6~12자리 이내로 입력해주세요.")
     private String password;
 
-
-
     private MemberRole memberRole;
+
+
+    public Member toMember(PasswordEncoder passwordEncoder, MemberRole memberRole) {
+        return Member.builder()
+                .email(email)
+                .nickName(nickName)
+                .password(passwordEncoder.encode(password))
+                .memberRole(memberRole)
+                .build();
+    }
+
+    public UsernamePasswordAuthenticationToken toAuthentication() {
+        return new UsernamePasswordAuthenticationToken(email, password);
+    }
 
 }

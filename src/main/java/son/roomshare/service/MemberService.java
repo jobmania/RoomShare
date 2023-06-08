@@ -11,8 +11,9 @@ import son.roomshare.config.security.jwt.TokenDto;
 import son.roomshare.config.security.jwt.TokenProvider;
 import son.roomshare.config.security.jwt.TokenRequestDto;
 import son.roomshare.domain.member.Member;
-import son.roomshare.domain.member.dto.MemberRequestDto;
+import son.roomshare.domain.member.dto.LoginMemberRequestDto;
 import son.roomshare.domain.member.dto.MemberResponseDto;
+import son.roomshare.domain.member.dto.SignUpMemberRequestDto;
 import son.roomshare.domain.refreshToken.RefreshToken;
 import son.roomshare.repository.MemberRepository;
 import son.roomshare.repository.RefreshTokenRepository;
@@ -49,7 +50,7 @@ public class MemberService {
 
 
     @Transactional
-    public MemberResponseDto signup(MemberRequestDto memberRequestDto) {
+    public MemberResponseDto signup(SignUpMemberRequestDto memberRequestDto) {
         if (memberRepository.existsByEmail(memberRequestDto.getEmail())) {
             throw new RuntimeException("이미 가입되어 있는 유저입니다");
         }
@@ -59,7 +60,7 @@ public class MemberService {
     }
 
     @Transactional
-    public TokenDto login(MemberRequestDto memberRequestDto, HttpServletResponse response) {
+    public TokenDto login(LoginMemberRequestDto memberRequestDto, HttpServletResponse response) {
         // 1. Login ID/PW 를 기반으로 AuthenticationToken 생성
         UsernamePasswordAuthenticationToken authenticationToken = memberRequestDto.toAuthentication();
 

@@ -40,8 +40,9 @@ public class Member {
      * 회원 가입
      * */
     @Builder
-    public Member(String email, String password, MemberRole memberRole) {
+    public Member(String email, String nickName, String password, MemberRole memberRole) {
         this.email = email;
+        this.nickName = nickName;
         this.password = password;
         this.memberRole = memberRole;
     }
