@@ -23,10 +23,11 @@ public class SecurityConfig {
     private final TokenProvider tokenProvider;
 
     // h2 database 테스트가 원활하도록 관련 API 들은 전부 무시
+    // local 관련 파일 접속들 허용
     @Bean
     public WebSecurityCustomizer webSecurityCustomizer() {
         return (web) -> web.ignoring()
-                .antMatchers("/h2-console/**", "/favicon.ico");
+                .antMatchers("/h2-console/**", "/favicon.ico", "/js/**", "/image/**", "/css/**", "/scss/**");
     }
 
     @Bean
@@ -60,6 +61,7 @@ public class SecurityConfig {
                 .and()
                 .authorizeRequests()
                 .antMatchers("/member/auth/**").permitAll() // 로그인 // 회원가입
+                .antMatchers("/").permitAll() // 홈화면
                 .anyRequest().authenticated()
 
 
@@ -69,6 +71,7 @@ public class SecurityConfig {
 
         return http.build();
     }
+
 
 
 }

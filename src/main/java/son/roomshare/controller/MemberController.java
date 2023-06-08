@@ -17,7 +17,7 @@ import son.roomshare.service.MemberService;
 
 import javax.servlet.http.HttpServletResponse;
 
-@RestController
+@Controller
 @RequiredArgsConstructor
 @RequestMapping("/member")
 public class MemberController {
@@ -35,15 +35,15 @@ public class MemberController {
 //        return "member_view";
 //    }
 
-    @PostMapping("/auth/signup")
-    public ResponseEntity<MemberResponseDto> signup(@RequestBody MemberRequestDto memberRequestDto) {
-        return ResponseEntity.ok(memberService.signup(memberRequestDto));
-    }
-
-    @PostMapping("/auth/login")
-    public ResponseEntity<TokenDto> login(@RequestBody MemberRequestDto memberRequestDto, HttpServletResponse response) {
-        return ResponseEntity.ok(memberService.login(memberRequestDto,response));
-    }
+//    @PostMapping("/auth/signup")
+//    public ResponseEntity<MemberResponseDto> signup(@RequestBody MemberRequestDto memberRequestDto) {
+//        return ResponseEntity.ok(memberService.signup(memberRequestDto));
+//    }
+//
+//    @PostMapping("/auth/login")
+//    public ResponseEntity<TokenDto> login(@RequestBody MemberRequestDto memberRequestDto, HttpServletResponse response) {
+//        return ResponseEntity.ok(memberService.login(memberRequestDto,response));
+//    }
 
     @PostMapping("/auth/reissue")
     public ResponseEntity<TokenDto> reissue(@RequestBody TokenRequestDto tokenRequestDto) {
