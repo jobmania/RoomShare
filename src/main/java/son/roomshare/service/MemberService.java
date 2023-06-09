@@ -2,6 +2,7 @@ package son.roomshare.service;
 
 import com.sun.jdi.request.DuplicateRequestException;
 import lombok.RequiredArgsConstructor;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.config.annotation.authentication.builders.AuthenticationManagerBuilder;
 import org.springframework.security.core.Authentication;
@@ -22,6 +23,7 @@ import son.roomshare.repository.RefreshTokenRepository;
 import javax.servlet.http.HttpServletResponse;
 
 @Service
+@Slf4j
 @RequiredArgsConstructor
 public class MemberService {
 
@@ -63,6 +65,7 @@ public class MemberService {
 
     @Transactional
     public TokenDto login(LoginMemberRequestDto memberRequestDto, HttpServletResponse response) {
+
         // 1. Login ID/PW 를 기반으로 AuthenticationToken 생성
         UsernamePasswordAuthenticationToken authenticationToken = memberRequestDto.toAuthentication();
 

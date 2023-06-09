@@ -9,7 +9,6 @@ import son.roomshare.domain.member.MemberRole;
 import javax.validation.constraints.*;
 
 @Data
-
 public class SignUpMemberRequestDto {
 
     @Email

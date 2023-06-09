@@ -18,6 +18,13 @@ public class ExHandler {
         return new ErrorResult("409", e.getMessage());
     }
 
+    @ResponseStatus(HttpStatus.BAD_REQUEST)
+    @ExceptionHandler(NullPointerException.class)
+    public ErrorResult nullRequest(Exception e){
+        log.error("[exceptionHandler] ex",e);
+        return new ErrorResult("400", e.getMessage());
+    }
+
 
 
     @ResponseStatus(HttpStatus.INTERNAL_SERVER_ERROR)
