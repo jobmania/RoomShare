@@ -1,15 +1,18 @@
 package son.roomshare.controller;
 
+import com.sun.jdi.request.DuplicateRequestException;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.validation.BindingResult;
+import org.springframework.validation.ObjectError;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
 import son.roomshare.config.security.jwt.TokenDto;
 import son.roomshare.config.security.jwt.TokenRequestDto;
 import son.roomshare.domain.member.MemberRole;
+import son.roomshare.domain.member.dto.LoginMemberRequestDto;
 import son.roomshare.domain.member.dto.MemberResponseDto;
 import son.roomshare.domain.member.dto.SignUpMemberRequestDto;
 import son.roomshare.service.MemberService;
@@ -29,7 +32,7 @@ public class MemberController {
 
 
     @PostMapping("/auth/signup")
-    public String signUp(@Validated @ModelAttribute("member")SignUpMemberRequestDto dto, BindingResult bindingResult){
+    public String signUp(@Validated @ModelAttribute("member") SignUpMemberRequestDto dto, BindingResult bindingResult){
 
 
         if(bindingResult.hasErrors()){
@@ -37,14 +40,23 @@ public class MemberController {
             return "login/signForm";
         }
 
-        memberService.signup(dto);
+
+        try {
+            memberService.signup(dto);
+        } catch (DuplicateRequestException e) { // 중복된 내용 있을시 처리!
+            bindingResult.addError(new ObjectError("member", e.getMessage()));
+            return "login/signForm";
+        }
+
+
         return "home";
     }
 
-//    @PostMapping("/auth/signup")
-//    public ResponseEntity<MemberResponseDto> signup(@RequestBody MemberRequestDto memberRequestDto) {
-//        return ResponseEntity.ok(memberService.signup(memberRequestDto));
-//    }
+    @GetMapping("/auth/login")
+    public String loginForm(@ModelAttribute("member") LoginMemberRequestDto dto){
+        return "login/loginForm";
+    }
+
 
 //    @PostMapping("/auth/login")
 //    public ResponseEntity<TokenDto> login(@RequestBody MemberRequestDto memberRequestDto, HttpServletResponse response) {

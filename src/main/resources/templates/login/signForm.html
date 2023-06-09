@@ -29,20 +29,20 @@
         <div>
             <label for="name"> Email </label>
             <input type="text" id="email" th:field="*{email}" class="form-control" th:errorclass="field-error">
-            <div class="field-error" th:errors="*{email}" />
+            <div class="field-error" th:errors="*{email}"></div>
         </div>
 
         <div>
             <label for="name"> 닉네임 </label>
             <input type="text" id="name" th:field="*{nickName}" class="form-control" th:errorclass="field-error">
-            <div class="field-error" th:errors="*{nickName}" />
+            <div class="field-error" th:errors="*{nickName}"></div>
         </div>
 
 
         <div>
             <label for="password">비밀번호</label>
             <input type="password" id="password" th:field="*{password}" class="form-control" th:errorclass="field-error">
-            <div class="field-error" th:errors="*{password}" />
+            <div class="field-error" th:errors="*{password}"></div>
         </div>
 
 
@@ -51,10 +51,9 @@
             <div>회원 종류</div>
             <div th:each="type, status : ${memberType}" class="form-check form-check-inline">
                 <input type="radio" th:field="*{memberRole}" th:value="${type.name()}" class="form-check-input">
-                <label th:for="${'memberType_' + status.index}" th:text="${type.name()}" class="form-check-label">
-                    빈칸
-                </label>
+                <label th:for="${'memberType_' + status.index}" th:text="${type.name()}" class="form-check-label">  빈칸  </label>
             </div>
+            <div class="field-error" th:errors="*{memberRole}"></div>
         </div>
 
 
@@ -74,4 +73,13 @@
     </form>
 </div> <!-- /container -->
 </body>
+
+
+
+<script>
+    function toggleInput(checkbox) {
+        var inputContainer = document.getElementById("inputContainer");
+        inputContainer.style.display = checkbox.checked ? "block" : "none";
+    }
+</script>
 </html>

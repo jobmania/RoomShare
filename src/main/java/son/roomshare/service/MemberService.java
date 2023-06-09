@@ -1,5 +1,6 @@
 package son.roomshare.service;
 
+import com.sun.jdi.request.DuplicateRequestException;
 import lombok.RequiredArgsConstructor;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.config.annotation.authentication.builders.AuthenticationManagerBuilder;
@@ -51,13 +52,14 @@ public class MemberService {
 
     @Transactional
     public MemberResponseDto signup(SignUpMemberRequestDto memberRequestDto) {
-        if (memberRepository.existsByEmail(memberRequestDto.getEmail())) {
-            throw new RuntimeException("이미 가입되어 있는 유저입니다");
-        }
+        checkDuplicateEmail(memberRequestDto);
+        checkDuplicateNickname(memberRequestDto);
 
         Member member = memberRequestDto.toMember(passwordEncoder,memberRequestDto.getMemberRole());
         return MemberResponseDto.of(memberRepository.save(member));
     }
+
+
 
     @Transactional
     public TokenDto login(LoginMemberRequestDto memberRequestDto, HttpServletResponse response) {
@@ -117,6 +119,16 @@ public class MemberService {
 
 
 
+    private void checkDuplicateNickname(SignUpMemberRequestDto memberRequestDto) {
+        if(memberRepository.existsByNickName(memberRequestDto.getNickName())){
+            throw new DuplicateRequestException("중복된 닉네임 입니다");
+        }
+    }
 
+    private void checkDuplicateEmail(SignUpMemberRequestDto memberRequestDto) {
+        if (memberRepository.existsByEmail(memberRequestDto.getEmail())) {
+            throw new DuplicateRequestException("중복된 아이디 입니다");
+        }
+    }
 
 }
