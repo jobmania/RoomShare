@@ -25,7 +25,7 @@ import java.util.Arrays;
 @Slf4j
 public class JwtFilter extends OncePerRequestFilter {
 
-    private static final Logger logger = LoggerFactory.getLogger(TokenProvider.class);
+
     private static final String AUTHORIZATION_HEADER = "Authorization";
     private final TokenProvider tokenProvider;
 
@@ -81,9 +81,9 @@ public class JwtFilter extends OncePerRequestFilter {
             Authentication authentication = tokenProvider.getAuthentication(jwt);
             // 유저 저장.
             SecurityContextHolder.getContext().setAuthentication(authentication);
-            logger.debug("Security Context, Member_ID ='{}' 인증정보 저장 및 조회 , uri= {} ",authentication.getName(),requestURI);
+            log.debug("Security Context, Member_ID ='{}' 인증정보 저장 및 조회 , uri= {} ",authentication.getName(),requestURI);
         }else {
-            logger.debug("통과 url : {} ",requestURI);
+            log.debug("통과 url : {} ",requestURI);
         }
         filterChain.doFilter(servletRequest, servletResponse);
     }

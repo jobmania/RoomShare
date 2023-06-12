@@ -25,6 +25,8 @@ import javax.servlet.http.HttpServletResponse;
 @RequiredArgsConstructor
 @RequestMapping("/member")
 public class MemberController {
+    private static final String AUTHORIZATION = "Authorization";
+    private static final String REFRESH = "Refresh_Token";
 
     private final MemberService memberService;
 
@@ -68,8 +70,8 @@ public class MemberController {
         try {
             TokenDto tokenDto = memberService.login(dto, response);
 
-            setCookie("Authorization", "Bearer_" + tokenDto.getAccessToken(), response);
-            setCookie("Refresh_Token", tokenDto.getRefreshToken(), response);
+            setCookie(AUTHORIZATION, "Bearer_" + tokenDto.getAccessToken(), response);
+            setCookie(REFRESH, tokenDto.getRefreshToken(), response);
 
         } catch (BadCredentialsException e){
             bindingResult.addError(new ObjectError("login", "로그인에 실패했습니다."));
@@ -78,23 +80,25 @@ public class MemberController {
         return "loginHome";
     }
 
-    private static void setCookie(String Refresh_Token, String tokenDto, HttpServletResponse response) {
-        Cookie refreshCookie = new Cookie(Refresh_Token, tokenDto);
+    private static void setCookie(String name, String value, HttpServletResponse response) {
+        Cookie refreshCookie = new Cookie(name, value);
         refreshCookie.setPath("/"); // / 동일 사이트과 크로스 사이트에 모두 쿠키 전송이 가능합니다
-        refreshCookie.setSecure(true);  // Secure 속성을 설정하면 쿠키는 HTTPS 프로토콜을 통해서만 전송
+//        refreshCookie.setSecure(true);  // Secure 속성을 설정하면 쿠키는 HTTPS 프로토콜을 통해서만 전송
         refreshCookie.setHttpOnly(true); //  JavaScript를 통한 쿠키 접근을 막을 수 있습니다
         response.addCookie(refreshCookie);
     }
 
 
-    @PostMapping("/auth/logout")
+    @PostMapping("/logout")
     public String logout(HttpServletResponse response) {
-        expireCookie(response, "Authorization");
-        expireCookie(response, "Refresh_Token");
-        return "redirect:/";
+        expireCookie(response, AUTHORIZATION);
+        expireCookie(response, REFRESH);
+        log.info("로그아웃완료!");
+        return "home";
     }
     private void expireCookie(HttpServletResponse response, String cookieName) {
         Cookie cookie = new Cookie(cookieName, null);
+
         cookie.setMaxAge(0);
         response.addCookie(cookie);
     }
