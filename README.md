@@ -48,5 +48,18 @@ Validation
 
 ---------------------
 
+이용하는 open api data list 
+- 부산 숙박 업소
+- 부산 음식점
+
+
+
+
+
+
+
+
+--------------
+
 https://github.com/jobmania/CloneNaverShopping
 https://github.com/jobmania/It-commerce_BE-
