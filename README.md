@@ -1,4 +1,4 @@
-# roomshare
+# roomshare (가칭 부산풀코스)
 - 룸쉐어 서비스 (집 공유) 
 
 # 기술 ver
