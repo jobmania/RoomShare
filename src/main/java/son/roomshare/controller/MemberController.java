@@ -17,6 +17,7 @@ import son.roomshare.domain.member.dto.LoginMemberRequestDto;
 import son.roomshare.domain.member.dto.SignUpMemberRequestDto;
 import son.roomshare.service.MemberService;
 
+import javax.servlet.http.Cookie;
 import javax.servlet.http.HttpServletResponse;
 
 @Controller
@@ -65,12 +66,37 @@ public class MemberController {
         }
 
         try {
-            memberService.login(dto, response);
+            TokenDto tokenDto = memberService.login(dto, response);
+
+            setCookie("Authorization", "Bearer_" + tokenDto.getAccessToken(), response);
+            setCookie("Refresh_Token", tokenDto.getRefreshToken(), response);
+
         } catch (BadCredentialsException e){
             bindingResult.addError(new ObjectError("login", "로그인에 실패했습니다."));
             return "login/loginForm";
         }
-        return "home";
+        return "loginHome";
+    }
+
+    private static void setCookie(String Refresh_Token, String tokenDto, HttpServletResponse response) {
+        Cookie refreshCookie = new Cookie(Refresh_Token, tokenDto);
+        refreshCookie.setPath("/"); // / 동일 사이트과 크로스 사이트에 모두 쿠키 전송이 가능합니다
+        refreshCookie.setSecure(true);  // Secure 속성을 설정하면 쿠키는 HTTPS 프로토콜을 통해서만 전송
+        refreshCookie.setHttpOnly(true); //  JavaScript를 통한 쿠키 접근을 막을 수 있습니다
+        response.addCookie(refreshCookie);
+    }
+
+
+    @PostMapping("/auth/logout")
+    public String logout(HttpServletResponse response) {
+        expireCookie(response, "Authorization");
+        expireCookie(response, "Refresh_Token");
+        return "redirect:/";
+    }
+    private void expireCookie(HttpServletResponse response, String cookieName) {
+        Cookie cookie = new Cookie(cookieName, null);
+        cookie.setMaxAge(0);
+        response.addCookie(cookie);
     }
 
 

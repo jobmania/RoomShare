@@ -26,7 +26,7 @@ public class TestDataInit {
 
         SignUpMemberRequestDto memberRequestDto = new SignUpMemberRequestDto();
         memberRequestDto.setEmail("abc@abc.com");
-        memberRequestDto.setPassword("powerover!!");
+        memberRequestDto.setPassword("qwer1234!!");
         memberRequestDto.setNickName("엄준식");
         memberRequestDto.setMemberRole(MemberRole.세입자);
 
