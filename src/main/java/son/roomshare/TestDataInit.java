@@ -28,7 +28,7 @@ public class TestDataInit {
         memberRequestDto.setEmail("abc@abc.com");
         memberRequestDto.setPassword("qwer1234!!");
         memberRequestDto.setNickName("엄준식");
-        memberRequestDto.setMemberRole(MemberRole.세입자);
+        memberRequestDto.setMemberRole(MemberRole.현지인);
 
         Member member = memberRequestDto.toMember(passwordEncoder,memberRequestDto.getMemberRole());
 

@@ -10,6 +10,7 @@ import org.springframework.validation.BindingResult;
 import org.springframework.validation.ObjectError;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 import son.roomshare.config.security.jwt.TokenDto;
 import son.roomshare.config.security.jwt.TokenRequestDto;
 import son.roomshare.domain.member.MemberRole;
@@ -37,7 +38,8 @@ public class MemberController {
 
 
     @PostMapping("/auth/signup")
-    public String signUp(@Validated @ModelAttribute("member") SignUpMemberRequestDto dto, BindingResult bindingResult){
+    public String signUp(@Validated @ModelAttribute("member") SignUpMemberRequestDto dto, BindingResult bindingResult,
+                        RedirectAttributes redirectAttributes ){
         if(bindingResult.hasErrors()){
             log.error("bindingResult ={}",bindingResult.getTarget());
             return "login/signForm";
@@ -49,7 +51,8 @@ public class MemberController {
             bindingResult.addError(new ObjectError("signup", e.getMessage()));
             return "login/signForm";
         }
-        return "home";
+
+        return "redirect:/";
     }
 
     @GetMapping("/auth/login")
@@ -58,7 +61,8 @@ public class MemberController {
     }
 
     @PostMapping("/auth/login")
-    public String login(@Validated @ModelAttribute("member") LoginMemberRequestDto dto, BindingResult bindingResult, HttpServletResponse response){
+    public String login(@Validated @ModelAttribute("member") LoginMemberRequestDto dto, BindingResult bindingResult, HttpServletResponse response,
+                        RedirectAttributes redirectAttributes){
 
         log.info("로그인 확인 {},{}",dto.getEmail(),dto.getPassword());
 
@@ -77,7 +81,9 @@ public class MemberController {
             bindingResult.addError(new ObjectError("login", "로그인에 실패했습니다."));
             return "login/loginForm";
         }
-        return "loginHome";
+
+//        redirectAttributes.addAttribute("member", dto);
+        return "redirect:/api/member/loginHome";
     }
 
     private static void setCookie(String name, String value, HttpServletResponse response) {
