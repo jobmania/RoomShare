@@ -3,11 +3,11 @@ package son.roomshare.domain.member;
 import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
-import org.springframework.security.crypto.password.PasswordEncoder;
 
 import javax.persistence.*;
 
 @Entity
+@Table(name = "member")
 @Getter
 @NoArgsConstructor
 public class Member {
@@ -31,7 +31,7 @@ public class Member {
     private String password;
 
 
-    @Column(columnDefinition = "VARCHAR")
+    @Column(columnDefinition = "VARCHAR(255)")
     @Enumerated(EnumType.STRING)
     private MemberRole memberRole;
 

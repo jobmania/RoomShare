@@ -21,19 +21,19 @@ public class TestDataInit {
     /**
      * 테스트용 데이터 추가
      */
-    @PostConstruct
-    public void init() {
-
-        SignUpMemberRequestDto memberRequestDto = new SignUpMemberRequestDto();
-        memberRequestDto.setEmail("abc@abc.com");
-        memberRequestDto.setPassword("qwer1234!!");
-        memberRequestDto.setNickName("엄준식");
-        memberRequestDto.setMemberRole(MemberRole.현지인);
-
-        Member member = memberRequestDto.toMember(passwordEncoder,memberRequestDto.getMemberRole());
-
-        memberRepository.save(member);
-    }
+//    @PostConstruct
+//    public void init() {
+//
+//        SignUpMemberRequestDto memberRequestDto = new SignUpMemberRequestDto();
+//        memberRequestDto.setEmail("abc@abc.com");
+//        memberRequestDto.setPassword("qwer1234!!");
+//        memberRequestDto.setNickName("엄준식");
+//        memberRequestDto.setMemberRole(MemberRole.현지인);
+//
+//        Member member = memberRequestDto.toMember(passwordEncoder,memberRequestDto.getMemberRole());
+//
+//        memberRepository.save(member);
+//    }
 
 
 }
