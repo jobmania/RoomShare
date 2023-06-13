@@ -23,7 +23,7 @@ public class Member {
     @Column(unique = true)
     private String email;
 
-    @Column(unique = true)
+    @Column(unique = true,name = "nickname")
     private String nickName;
 
 
@@ -31,7 +31,7 @@ public class Member {
     private String password;
 
 
-    @Column(columnDefinition = "VARCHAR(255)")
+    @Column(columnDefinition = "VARCHAR(255)") // 설정 
     @Enumerated(EnumType.STRING)
     private MemberRole memberRole;
 
