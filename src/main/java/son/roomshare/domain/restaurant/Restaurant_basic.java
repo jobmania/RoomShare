@@ -1,5 +1,6 @@
 package son.roomshare.domain.restaurant;
 
+import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 
@@ -10,6 +11,7 @@ import java.util.List;
 @Table(name = "restaurant_basic")
 @Getter
 @NoArgsConstructor
+@AllArgsConstructor
 public class Restaurant_basic {
 
     @Id
@@ -18,7 +20,7 @@ public class Restaurant_basic {
     private String name;
 
     @Column(name = "roadname_address")
-    private String roadNameAddress;
+    private String streetAddress;
 
     @Column(name = "landnumber_address")
     private String landNumberAddress;

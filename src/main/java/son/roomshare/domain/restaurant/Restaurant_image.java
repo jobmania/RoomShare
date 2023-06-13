@@ -1,9 +1,14 @@
 package son.roomshare.domain.restaurant;
 
+import lombok.AllArgsConstructor;
+import lombok.NoArgsConstructor;
+
 import javax.persistence.*;
 
 @Entity
 @Table(name = "restaurant_image")
+@NoArgsConstructor
+@AllArgsConstructor
 public class Restaurant_image {
 
     @Id

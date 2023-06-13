@@ -1,5 +1,8 @@
 package son.roomshare.domain.restaurant;
 
+import lombok.AllArgsConstructor;
+import lombok.NoArgsConstructor;
+
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.Id;
@@ -7,6 +10,8 @@ import javax.persistence.Table;
 
 @Entity
 @Table(name = "restaurant_detail")
+@NoArgsConstructor
+@AllArgsConstructor
 public class Restaurant_detail {
 
     @Id

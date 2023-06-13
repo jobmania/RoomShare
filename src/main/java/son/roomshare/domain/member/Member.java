@@ -31,7 +31,7 @@ public class Member {
     private String password;
 
 
-    @Column(columnDefinition = "VARCHAR(255)") // 설정 
+    @Column(columnDefinition = "VARCHAR(255)") // Enum 타입시 Type 설정.
     @Enumerated(EnumType.STRING)
     private MemberRole memberRole;
 
