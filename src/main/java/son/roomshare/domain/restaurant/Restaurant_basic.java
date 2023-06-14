@@ -37,5 +37,8 @@ public class Restaurant_basic {
     private List<Restaurant_image> imageList;
 
 
-
+    @Override
+    public String toString() {
+        return  String.valueOf(id);
+    }
 }

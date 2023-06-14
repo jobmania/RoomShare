@@ -6,7 +6,7 @@ import son.roomshare.domain.restaurant.Restaurant_basic;
 import javax.persistence.*;
 
 @Entity
-public class MyRestaurantBoard {
+public class Board {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)

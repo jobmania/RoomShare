@@ -1,0 +1,64 @@
+<!DOCTYPE HTML>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="utf-8">
+    <!--   절대경로로 바꾸기 -->
+    <link th:href="@{/css/bootstrap.min.css}"
+          href="../css/bootstrap.min.css" rel="stylesheet">
+</head>
+<body>
+<div class="container" style="max-width: 800px">
+    <div class="py-5 text-center">
+        <h2>식당 리스트 </h2>
+    </div>
+    <div class="row">
+        <div class="col">
+            <button class="btn btn-primary float-end" onclick="location.href='addForm.html'"
+                    th:onclick="|location.href='@{/basic/items/add}'|"
+                    type="button">상품 등록</button>
+        </div>
+    </div>
+    <hr class="my-4">
+    <div>
+        <table class="table">
+            <thead>
+            <tr>
+                <th>ID</th>
+                <th>식당명</th>
+                <th>종류</th>
+                <th>주소</th>
+            </tr>
+            </thead>
+            <tbody>
+
+            <tr th:each="item : ${list.content}">
+                <td><a href="item.html" th:href="@{/food/{itemId}(itemId=${item.id})}" th:text="${item}">식당 아이디</a></td>
+                <td><a href="item.html" th:href="@{|/food/${item.id}|}" th:text="${item.name}" >식당 명</a></td>
+                <td th:text="${item.type}" > </td>
+                <td th:text="${item.landNumberAddress}">10</td>
+            </tr>
+
+            </tbody>
+        </table>
+
+
+        <ul class="pagination">
+            <li th:class="${list.number == 0} ? 'page-item disabled' : 'page-item'">
+                <a th:if="${list.number != 0}" th:href="@{/food/(page=${list.number - 1})}" class="page-link">Previous</a>
+<!--                 첫번째 일경우 a 태그 비활성화 및 이름만 표시 -->
+                <span th:unless="${list.number != 0}" class="page-link">Previous</span>
+            </li>
+            <li th:each="pageNumber : ${#numbers.sequence(list.number - 5, list.number + 4)}"
+                th:class="${pageNumber == list.number} ? 'page-item active' : 'page-item'">
+                <a th:if="${pageNumber >= 0 && pageNumber < list.totalPages}" th:href="@{/food/(page=${pageNumber})}" class="page-link" th:text="${pageNumber + 1}"></a>
+            </li>
+            <li th:class="${list.number == list.totalPages - 1} ? 'page-item disabled' : 'page-item'">
+                <a th:if="${list.number != list.totalPages - 1}" th:href="@{/food/(page=${list.number + 1})}" class="page-link">Next</a>
+                <span th:unless="${list.number != list.totalPages - 1}" class="page-link">Next</span>
+            </li>
+        </ul>
+
+    </div>
+</div> <!-- /container -->
+</body>
+</html>

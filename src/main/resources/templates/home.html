@@ -24,6 +24,15 @@
                 로그인
             </button>
         </div>
+
+        <div class="col">
+            <button class="w-100 btn btn-dark btn-lg"
+                    onclick="location.href='items.html'"
+                    th:onclick="|location.href='@{/food}'|" type="button">
+                식당리스트
+            </button>
+        </div>
+
     </div>
 
     <div id="map" style="width:800px;height:600px;"></div>
