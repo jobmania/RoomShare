@@ -4,6 +4,7 @@ import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.core.annotation.AuthenticationPrincipal;
+import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -15,7 +16,7 @@ import son.roomshare.domain.member.dto.MemberResponseDto;
 import son.roomshare.service.MemberService;
 import son.roomshare.utils.SecurityUtil;
 
-@RestController
+@Controller
 @Slf4j
 @RequiredArgsConstructor
 @RequestMapping("/api/member")
@@ -37,8 +38,8 @@ public class TestController {
         log.info("memberDetails ={}",memberDetails.getMember().getEmail());
         Member member = memberDetails.getMember();
         MemberResponseDto memberInfoByEmail = memberService.findMemberInfoByEmail(member.getEmail());
-        model.addAttribute("email", memberInfoByEmail.getEmail());
-        return "test";
+        model.addAttribute("member", member);
+        return "loginHome";
     }
 
 }

@@ -53,12 +53,6 @@ Validation
 - 부산 음식점
 
 
-
-
-
-
-
-
 --------------
 
 https://github.com/jobmania/CloneNaverShopping

@@ -15,6 +15,7 @@ import java.util.List;
 public class Restaurant_basic {
 
     @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     Long id;
 
     private String name;
