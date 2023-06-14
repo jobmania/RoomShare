@@ -57,6 +57,5 @@ public class Accommodation {
     @Column(name = "blind_guideway_available")
     private String blindGuide;
 
-    @Column(name = "regist_date")
-    private LocalDateTime registerDate;
+
 }
