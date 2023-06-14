@@ -44,6 +44,13 @@
             <div class="field-error" th:errors="*{password}"></div>
         </div>
 
+        <div>
+            <label for="password">비밀번호 확인</label>
+            <input type="password" id="passwordCheck" th:field="*{passwordCheck}" class="form-control" th:errorclass="field-error">
+            <div class="field-error" th:errors="*{passwordCheck}"></div>
+            <div class="field-error" th:if="${#fields.hasErrors('passwordCheck')}" th:errors="*{passwordCheck}"></div>
+        </div>
+
 
         <!-- radio button -->
         <div>
@@ -80,5 +87,25 @@
         var inputContainer = document.getElementById("inputContainer");
         inputContainer.style.display = checkbox.checked ? "block" : "none";
     }
+
+
+    /* 비밀번호 확인 체크 */
+    var password = document.getElementById('password');
+    var passwordCheck = document.getElementById('passwordCheck');
+    var errorDiv = document.getElementById('passwordCheck-error');
+
+    password.addEventListener('input', validatePassword);
+    passwordCheck.addEventListener('input', validatePassword);
+
+    function validatePassword() {
+        if (password.value !== passwordCheck.value) {
+            passwordCheck.setCustomValidity('비밀번호와 비밀번호 확인이 일치하지 않습니다.');
+            errorDiv.textContent = '비밀번호와 비밀번호 확인이 일치하지 않습니다.';
+        } else {
+            passwordCheck.setCustomValidity('');
+            errorDiv.textContent = '';
+        }
+    }
+
 </script>
 </html>

@@ -14,7 +14,7 @@ public class SecurityUtil {
     /**
      * JwtFilter 에서 SecurityContext 에 세팅한 유저 정보를 꺼냅니다.
      * SecurityContext 는 ThreadLocal 에 사용자의 정보를 저장합니다.
-     *  memberId -> Long 타입으로 파싱하여 반환
+     *
      * */
     public static String getCurrentMemberId() {
         final Authentication authentication = SecurityContextHolder.getContext().getAuthentication();

@@ -20,8 +20,11 @@ public class SignUpMemberRequestDto {
 
 
     @NotNull
-    @Pattern(regexp="[a-zA-Z1-9]{6,12}", message = "비밀번호는 영어와 숫자로 포함해서 6~12자리 이내로 입력해주세요.")
+    @Pattern(regexp="[a-zA-Z0-9~!@#$%^&*()-_=+]{6,12}", message = "비밀번호는 영어,숫자,특수문자 포함해서 6~12자리 이내로 입력해주세요.")
     private String password;
+
+    @NotNull(message = "일치하지 않습니다.")
+    private String passwordCheck;
 
     @NotNull(message = "선택해주셈")
     private MemberRole memberRole;

@@ -20,6 +20,7 @@ import son.roomshare.domain.refreshToken.RefreshToken;
 import son.roomshare.repository.MemberRepository;
 import son.roomshare.repository.RefreshTokenRepository;
 
+import javax.servlet.http.Cookie;
 import javax.servlet.http.HttpServletResponse;
 
 @Service
@@ -48,8 +49,6 @@ public class MemberService {
                 .map(MemberResponseDto::of)
                 .orElseThrow(() -> new RuntimeException("유저 정보가 없습니다."));
     }
-
-
 
 
     @Transactional
@@ -83,9 +82,10 @@ public class MemberService {
                 .build();
 
         refreshTokenRepository.save(refreshToken);
-       // ++ 헤더에 토큰 값 추가!
-        response.setHeader("Authorization","Bearer "+ tokenDto.getAccessToken());
+       // ++ 헤더에 토큰 값 추가! And 쿠키 값으로 토큰값 전달
+        response.setHeader("Authorization","Bearer_"+ tokenDto.getAccessToken());
         response.setHeader("Refresh_Token",tokenDto.getRefreshToken());
+
         // 5. 토큰 발급
         return tokenDto;
     }
