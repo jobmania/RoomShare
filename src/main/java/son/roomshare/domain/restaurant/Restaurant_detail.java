@@ -1,6 +1,7 @@
 package son.roomshare.domain.restaurant;
 
 import lombok.AllArgsConstructor;
+import lombok.Getter;
 import lombok.NoArgsConstructor;
 
 import javax.persistence.Column;
@@ -12,6 +13,7 @@ import javax.persistence.Table;
 @Table(name = "restaurant_detail")
 @NoArgsConstructor
 @AllArgsConstructor
+@Getter
 public class Restaurant_detail {
 
     @Id

@@ -9,5 +9,7 @@ import son.roomshare.domain.restaurant.Restaurant_detail;
 @Builder
 public class RestaurantResponse {
     private Long id;
+    private Restaurant_basic restaurant_basic;
+    private Restaurant_detail restaurant_detail;
 
 }

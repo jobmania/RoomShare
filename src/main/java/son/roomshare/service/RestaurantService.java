@@ -43,9 +43,8 @@ public class RestaurantService {
 
         log.info("여기까지오나?");
 
-        Optional<Restaurant_basic> findRestaurant = basicRestaurantRepository.findOneById(1085L);
-        Optional<Restaurant_detail> findDetailRestaurant = detailRestaurantRepository.findOneById(1085L);
-        Optional<Restaurant_image> byRestaurant = imageRestaurantRepository.findByRestaurant(1085L);
+        Optional<Restaurant_basic> findRestaurant = basicRestaurantRepository.findOneById(id);
+        Optional<Restaurant_detail> findDetailRestaurant = detailRestaurantRepository.findOneById(id);
 
         log.info("머가문제냐?");
         if(findRestaurant.isPresent() && findDetailRestaurant.isPresent() ){
@@ -54,6 +53,8 @@ public class RestaurantService {
 
             return RestaurantResponse.builder()
                     .id(restaurantBasic.getId())
+                    .restaurant_basic(restaurantBasic)
+                    .restaurant_detail(restaurantDetail)
                    .build();
         }else {
             throw new IllegalArgumentException("찾을수 없다고!");
