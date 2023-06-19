@@ -6,7 +6,8 @@
           href="css/bootstrap.min.css" rel="stylesheet">
 </head>
 <body>
-<div class="container" style="max-width: 600px">
+<div class="container" style="max-width: 800px">
+    <div th:replace="/menuBar.html"></div>
     <div class="py-5 text-center">
         <h2>홈 화면</h2>
     </div>
@@ -25,13 +26,6 @@
             </button>
         </div>
 
-        <div class="col">
-            <button class="w-100 btn btn-dark btn-lg"
-                    onclick="location.href='items.html'"
-                    th:onclick="|location.href='@{/food}'|" type="button">
-                식당리스트
-            </button>
-        </div>
 
     </div>
 

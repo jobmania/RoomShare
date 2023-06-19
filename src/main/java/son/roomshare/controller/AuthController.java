@@ -9,7 +9,6 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
 import son.roomshare.domain.member.Member;
 import son.roomshare.domain.member.MemberDetailsImpl;
 import son.roomshare.domain.member.dto.MemberResponseDto;
@@ -20,7 +19,7 @@ import son.roomshare.utils.SecurityUtil;
 @Slf4j
 @RequiredArgsConstructor
 @RequestMapping("/api/member")
-public class TestController {
+public class AuthController {
     private final MemberService memberService;
 
     @GetMapping("/me")
