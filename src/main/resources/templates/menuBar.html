@@ -5,16 +5,39 @@
         <span class="navbar-toggler-icon"></span>
     </button>
     <div class="collapse navbar-collapse" id="navbarNav">
-        <ul class="navbar-nav">
+        <ul class="navbar-nav ml-auto">
             <li class="nav-item">
-                <a class="nav-link" href="/food">식당 보기</a>
+                <a class="nav-link" href="/food">식당List 보기</a>
             </li>
             <li class="nav-item">
-                <a class="nav-link" href="#">호텔 보기</a>
+                <a class="nav-link" href="#">호텔List 보기</a>
             </li>
             <li class="nav-item">
-                <a class="nav-link" href="#">북마크 보기</a>
+                <a class="nav-link" href="#">리뷰List 보기</a>
             </li>
+
+
+            <!-- 비로그인 상태 -->
+            <li th:if="${not isLoggedIn}">
+                <a class="nav-link" href="/member/auth/signup">회원가입</a>
+            </li>
+            <li th:if="${not isLoggedIn}">
+                <a class="nav-link" href="/member/auth/login">로그인</a>
+            </li>
+
+            <!-- 로그인 상태 -->
+            <li th:if="${isLoggedIn}">
+                <a class="nav-link" href="#">
+                    <img th:src="${userImage}" alt="회원 이미지">
+                </a>
+            </li>
+            <li th:if="${isLoggedIn}">
+                <a class="nav-link" href="/member/logout">로그아웃</a>
+            </li>
+
+
+
+
         </ul>
     </div>
 </nav>

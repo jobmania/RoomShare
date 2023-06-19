@@ -25,7 +25,7 @@ import javax.servlet.http.HttpServletResponse;
 @Slf4j
 @RequiredArgsConstructor
 @RequestMapping("/member")
-public class MemberController {
+public class MemberController extends HomeController {
     private static final String AUTHORIZATION = "Authorization";
     private static final String REFRESH = "Refresh_Token";
 
@@ -83,15 +83,7 @@ public class MemberController {
         }
 
 //        redirectAttributes.addAttribute("member", dto);
-        return "redirect:/api/member/loginHome";
-    }
-
-    private static void setCookie(String name, String value, HttpServletResponse response) {
-        Cookie refreshCookie = new Cookie(name, value);
-        refreshCookie.setPath("/"); // / 동일 사이트과 크로스 사이트에 모두 쿠키 전송이 가능합니다
-//        refreshCookie.setSecure(true);  // Secure 속성을 설정하면 쿠키는 HTTPS 프로토콜을 통해서만 전송
-        refreshCookie.setHttpOnly(true); //  JavaScript를 통한 쿠키 접근을 막을 수 있습니다
-        response.addCookie(refreshCookie);
+        return "redirect:/";
     }
 
 
@@ -101,6 +93,14 @@ public class MemberController {
         expireCookie(response, REFRESH);
         log.info("로그아웃완료!");
         return "home";
+    }
+
+    private static void setCookie(String name, String value, HttpServletResponse response) {
+        Cookie refreshCookie = new Cookie(name, value);
+        refreshCookie.setPath("/"); // / 동일 사이트과 크로스 사이트에 모두 쿠키 전송이 가능합니다
+//        refreshCookie.setSecure(true);  // Secure 속성을 설정하면 쿠키는 HTTPS 프로토콜을 통해서만 전송
+        refreshCookie.setHttpOnly(true); //  JavaScript를 통한 쿠키 접근을 막을 수 있습니다
+        response.addCookie(refreshCookie);
     }
     private void expireCookie(HttpServletResponse response, String cookieName) {
         Cookie cookie = new Cookie(cookieName, null);

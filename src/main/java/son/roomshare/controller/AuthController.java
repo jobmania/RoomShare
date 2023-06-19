@@ -7,6 +7,7 @@ import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import son.roomshare.domain.member.Member;
@@ -19,7 +20,7 @@ import son.roomshare.utils.SecurityUtil;
 @Slf4j
 @RequiredArgsConstructor
 @RequestMapping("/api/member")
-public class AuthController {
+public class AuthController extends HomeController {
     private final MemberService memberService;
 
     @GetMapping("/me")
@@ -40,6 +41,10 @@ public class AuthController {
         model.addAttribute("member", member);
         return "loginHome";
     }
+
+
+
+
 
 
 
