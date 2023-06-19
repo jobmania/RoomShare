@@ -18,18 +18,17 @@
     </div>
     <hr class="my-4">
 
-    <form id="searchBar" action="/food" method="get">
-        <span class="btn_img itx_wrp">
-            <label for="search_keyword">검색</label>
-            <input type="text" name="search_keyword" id="search_keyword" class="bd_srch_btm_itx srch_itx" value="">
-        </span>
+    <form id="searchBar" th:action="@{/food}" th:method="get">
+    <span class="btn_img itx_wrp">
+        <label for="search_keyword">검색</label>
+        <input type="text" name="search_keyword" id="search_keyword" class="bd_srch_btm_itx srch_itx" th:value="${param.search_keyword}">
+    </span>
         <span class="btn_img select">
-            <select id="search_target" name="search_target">
-            <option value="name">식당명</option>
-            <option value="address">주소</option>
-            </select>
-        </span>
-
+        <select id="search_target" name="search_target">
+            <option value="name" th:selected="${param.search_target == 'name'}" >식당명</option>
+            <option value="address" th:selected="${param.search_target == 'address'}">주소</option>
+        </select>
+    </span>
         <button type="submit" class="ico_16px search">Search</button>
     </form>
 
@@ -76,4 +75,18 @@
 
 </div> <!-- /container -->
 </body>
+<script>
+    // 페이지 로드 시 실행되는 JavaScript 코드
+    document.addEventListener('DOMContentLoaded', function() {
+        // URL에서 search_target 파라미터 값 가져오기
+        var searchTarget = new URLSearchParams(window.location.search).get('search_target');
+
+        // searchTarget 값에 따라 선택된 옵션 설정
+        if (searchTarget === 'name') {
+            document.getElementById('search_target').value = 'name';
+        } else if (searchTarget === 'address') {
+            document.getElementById('search_target').value = 'address';
+        }
+    });
+</script>
 </html>
