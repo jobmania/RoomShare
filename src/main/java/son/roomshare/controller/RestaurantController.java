@@ -23,8 +23,10 @@ public class RestaurantController extends HomeController{
     public String getAllList(@RequestParam(value = "page" , defaultValue = "0") int page,
                              @RequestParam(value = "sort", defaultValue = "id" ) String sort,
                              @RequestParam(value = "asc", defaultValue = "true") boolean isAsc,
+                             @RequestParam(value = "search_keyword", defaultValue = "" ) String keyword,
+                             @RequestParam(value = "search_target", defaultValue = "") String target,
                              Model model){
-        Page<Restaurant_basic> allList = restaurantService.getAllList(page, sort, isAsc);
+        Page<Restaurant_basic> allList = restaurantService.getAllList(page, sort, isAsc, keyword, target);
         model.addAttribute("list", allList);
         return "restaurant/list";
     }

@@ -29,12 +29,21 @@ public class RestaurantService {
 
 
     @Transactional(readOnly = true)
-    public Page<Restaurant_basic> getAllList(int page, String sortBy, boolean isAsc){
+    public Page<Restaurant_basic> getAllList(int page, String sortBy, boolean isAsc, String keyword, String target){
 
         Sort.Direction direction = isAsc ? Sort.Direction.ASC : Sort.Direction.DESC; // ASC 오래된순, DESC 최근순
         Sort sort = Sort.by(direction, sortBy); // 행 조건, 정렬 조건,
         Pageable pageable = PageRequest.of(page, 10, sort); // 한페이지당 10개
-        Page<Restaurant_basic> list = basicRestaurantRepository.findAll(pageable);
+        Page<Restaurant_basic> list ;
+
+
+        if ("name".equals(target)) {
+            list = basicRestaurantRepository.findByNameContainingIgnoreCase(keyword, pageable);
+        } else  { // ("address".equals(target))
+            list = basicRestaurantRepository.findByLandNumberAddressContainingIgnoreCase(keyword, pageable);
+        }
+
+
         return list;
     }
 

@@ -17,6 +17,22 @@
 
     </div>
     <hr class="my-4">
+
+    <form id="searchBar" action="/food" method="get">
+        <span class="btn_img itx_wrp">
+            <label for="search_keyword">검색</label>
+            <input type="text" name="search_keyword" id="search_keyword" class="bd_srch_btm_itx srch_itx" value="">
+        </span>
+        <span class="btn_img select">
+            <select id="search_target" name="search_target">
+            <option value="name">식당명</option>
+            <option value="address">주소</option>
+            </select>
+        </span>
+
+        <button type="submit" class="ico_16px search">Search</button>
+    </form>
+
     <div>
         <table class="table">
             <thead>
@@ -42,16 +58,16 @@
 
         <ul class="pagination">
             <li th:class="${list.number == 0} ? 'page-item disabled' : 'page-item'">
-                <a th:if="${list.number != 0}" th:href="@{/food(page=${list.number - 1})}" class="page-link">Previous</a>
+                <a th:if="${list.number != 0}" th:href="@{/food(page=${list.number - 1},search_keyword=${param.search_keyword},search_target=${param.search_target})}" class="page-link">Previous</a>
 <!--                 첫번째 일경우 a 태그 비활성화 및 이름만 표시 -->
                 <span th:unless="${list.number != 0}" class="page-link">Previous</span>
             </li>
             <li th:each="pageNumber : ${#numbers.sequence(list.number - 5, list.number + 4)}"
                 th:class="${pageNumber == list.number} ? 'page-item active' : 'page-item'">
-                <a th:if="${pageNumber >= 0 && pageNumber < list.totalPages}" th:href="@{/food(page=${pageNumber})}" class="page-link" th:text="${pageNumber + 1}"></a>
+                <a th:if="${pageNumber >= 0 && pageNumber < list.totalPages}" th:href="@{/food(page=${pageNumber},search_keyword=${param.search_keyword},search_target=${param.search_target})}" class="page-link" th:text="${pageNumber + 1}"></a>
             </li>
             <li th:class="${list.number == list.totalPages - 1} ? 'page-item disabled' : 'page-item'">
-                <a th:if="${list.number != list.totalPages - 1}" th:href="@{/food(page=${list.number + 1})}" class="page-link">Next</a>
+                <a th:if="${list.number != list.totalPages - 1}" th:href="@{/food(page=${list.number + 1},search_keyword=${param.search_keyword},search_target=${param.search_target})}" class="page-link">Next</a>
                 <span th:unless="${list.number != list.totalPages - 1}" class="page-link">Next</span>
             </li>
         </ul>
