@@ -8,122 +8,14 @@
 <body>
 <div class="container" style="max-width: 800px">
     <div th:replace="/menuBar.html"></div>
-    <div class="py-5 text-center">
-        <h2>홈 화면</h2>
-    </div>
+
     <div class="row">
-        <img src="/img/main.png" alt="Main Image">
+        <img src="/img/busan_best_spot.png" alt="Main Image">
     </div>
 
-    <div id="map" style="width:800px;height:600px;"></div>
-    <p><em>지도를 클릭시 위도경도 표시!</em></p>
-    <p id="result"></p>
     <hr class="my-4">
     <div th:replace="/footer.html"></div>
 </div>
 </body>
 
-<script type="text/javascript" src="//dapi.kakao.com/v2/maps/sdk.js?appkey=c61136f184803c883c07471fa66b3039&libraries=services,clusterer,drawing">
-</script>
-
-<script>
-    var mapContainer = document.getElementById('map'), // 지도를 표시할 div
-        mapOption = {
-            center: new kakao.maps.LatLng(35.15652917790759, 129.05943432084499), // 지도의 중심좌표
-            level: 3, // 지도의 확대 레벨
-            mapTypeId : kakao.maps.MapTypeId.ROADMAP // 지도종류
-        };
-
-    // 지도를 생성한다
-    var map = new kakao.maps.Map(mapContainer, mapOption);
-
-    // 지도에 확대 축소 컨트롤을 생성한다
-    var zoomControl = new kakao.maps.ZoomControl();
-
-    // 지도의 우측에 확대 축소 컨트롤을 추가한다
-    map.addControl(zoomControl, kakao.maps.ControlPosition.RIGHT);
-
-    // 지도에 마커를 생성하고 표시한다
-    var marker = new kakao.maps.Marker({
-        position: new kakao.maps.LatLng(35.154263060166926, 129.06021110391018), // 마커의 좌표
-        map: map // 마커를 표시할 지도 객체
-    });
-
-
-
-    // 마커에 커서가 오버됐을 때 마커 위에 표시할 인포윈도우를 생성합니다
-    var iwContent = '<div style="padding:5px;">Hello World!</div>'; // 인포윈도우에 표출될 내용으로 HTML 문자열이나 document element가 가능합니다
-
-
-    // 인포윈도우를 생성합니다
-    var infowindow = new kakao.maps.InfoWindow({
-        content : iwContent
-    });
-
-
-
-    // 주소-좌표 변환 객체를 생성합니다
-    var geocoder = new kakao.maps.services.Geocoder();
-
-
-
-
-
-    // 마커에 클릭 이벤트를 등록한다 (우클릭 : rightclick)
-    kakao.maps.event.addListener(marker, 'click', function() {
-        alert('마커를 클릭했습니다!');
-    });
-
-    kakao.maps.event.addListener(map, 'click', function(mouseEvent) {
-
-        // 클릭한 위도, 경도 정보를 가져옵니다
-        var latlng = mouseEvent.latLng;
-
-        var message = '클릭한 위치의 위도는 ' + latlng.getLat() + ' 이고, ';
-        message += '경도는 ' + latlng.getLng() + ' 입니다';
-
-        var resultDiv = document.getElementById('result');
-        resultDiv.innerHTML = message;
-
-    });
-
-    // 마커에 마우스오버 이벤트를 등록합니다
-    kakao.maps.event.addListener(marker, 'mouseover', function() {
-        // 마커에 마우스오버 이벤트가 발생하면 인포윈도우를 마커위에 표시합니다
-        infowindow.open(map, marker);
-    });
-
-    // 마커에 마우스아웃 이벤트를 등록합니다
-    kakao.maps.event.addListener(marker, 'mouseout', function() {
-        // 마커에 마우스아웃 이벤트가 발생하면 인포윈도우를 제거합니다
-        infowindow.close();
-    });
-
-
-    // 주소로 좌표를 검색합니다
-    geocoder.addressSearch('부산광역시 부산진구 중앙대로 지하 730', function(result, status) {
-
-        // 정상적으로 검색이 완료됐으면
-        if (status === kakao.maps.services.Status.OK) {
-
-            var coords = new kakao.maps.LatLng(result[0].y, result[0].x);
-
-            // 결과값으로 받은 위치를 마커로 표시합니다
-            var marker = new kakao.maps.Marker({
-                map: map,
-                position: coords
-            });
-
-            // 인포윈도우로 장소에 대한 설명을 표시합니다
-            var infowindow = new kakao.maps.InfoWindow({
-                content: '<div style="width:150px;text-align:center;padding:6px 0;">우리회사</div>'
-            });
-            infowindow.open(map, marker);
-
-            // 지도의 중심을 결과값으로 받은 위치로 이동시킵니다
-            map.setCenter(coords);
-        }
-    });
-
-</script>
 </html>

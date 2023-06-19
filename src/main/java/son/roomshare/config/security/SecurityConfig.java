@@ -63,7 +63,7 @@ public class SecurityConfig {
                 .antMatchers("/member/auth/**").permitAll() // 로그인 // 회원가입
                 .antMatchers("/").permitAll() // 홈화면
 
-                .antMatchers("/food/**").permitAll() // 홈화면
+                .antMatchers("/**").permitAll() // 테스트중에는 허용
 
 
                 .anyRequest().authenticated()
