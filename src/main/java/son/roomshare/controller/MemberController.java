@@ -84,7 +84,6 @@ public class MemberController extends HomeController {
             return "login/loginForm";
         }
 
-//        redirectAttributes.addAttribute("member", dto);
         return "redirect:/";
     }
 

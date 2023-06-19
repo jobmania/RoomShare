@@ -15,7 +15,7 @@ import son.roomshare.service.RestaurantService;
 @Controller
 @RequiredArgsConstructor
 @RequestMapping("/food")
-public class RestaurantController {
+public class RestaurantController extends HomeController{
 
     private final RestaurantService restaurantService;
 
