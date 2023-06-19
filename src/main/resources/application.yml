@@ -9,7 +9,8 @@ spring:
 #        driver-class-name: org.h2.Driver
 #        username: sa
 #        password:
-        url: jdbc:mysql://localhost:3306/roomshare
+#        ?createDatabaseIfNotExist=true -> 존재 하지 않으면 생성
+        url: jdbc:mysql://localhost:3306/roomshare?createDatabaseIfNotExist=true
         driver-class-name: com.mysql.cj.jdbc.Driver
         username: root
         password: test1234
