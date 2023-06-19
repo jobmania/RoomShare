@@ -11,35 +11,35 @@
   </style>
 </head>
 <body>
-<div class="container">
+<div class="container" style="max-width: 800px">
+  <div th:replace="/menuBar.html"></div>
   <div class="py-5 text-center">
     <h2>식당 상세</h2>
   </div>
 
-
-
   <div>
     <label for="itemId">식당 ID</label>
-    <input type="text" id="itemId" name="itemId" class="form-control"
-           value="1" th:value="${item.id}" readonly>
+    <span id="itemId" name="itemId" class="form-control">${item.id}</span>
   </div>
-
   <div>
     <label for="itemName">이름</label>
-    <input type="text" id="itemName" name="itemName" class="form-control"
-           value="상품A" th:value="${item.restaurant_basic.getName()}" readonly>
+    <span id="itemName" name="itemName" class="form-control" th:text="${item.restaurant_basic.getName()}"></span>
   </div>
   <div>
-    <label for="price">분류</label>
-    <input type="text" id="price" name="price" class="form-control"
-           value="10000"  th:value="${item.restaurant_basic.getCategory()}" readonly>
+    <label for="category">분류</label>
+    <span id="category" name="category" class="form-control" th:text="${item.restaurant_basic.getCategory()}"></span>
   </div>
   <div>
-    <label for="quantity">홈페이지</label>
-    <input type="text" id="quantity" name="quantity" class="form-control"
-           value="10"  th:value="${item.getRestaurant_detail().getHomepage()}" readonly>
+    <label for="homepage">홈페이지</label>
+    <span id="homepage" name="homepage" class="form-control" >
+      <span th:if="${#strings.isEmpty(item.getRestaurant_detail().getHomepage())}">
+        홈페이지 없음
+      </span>
+      <span th:unless="${#strings.isEmpty(item.getRestaurant_detail().getHomepage())}">
+        <span th:text="${item.getRestaurant_detail().getHomepage()}"></span>
+       </span>
+    </span>
   </div>
-
 
 
   <hr class="my-4">
@@ -59,6 +59,7 @@
               type="button">목록으로</button>
     </div>
   </div>
+
 </div> <!-- /container -->
 </body>
 </html>

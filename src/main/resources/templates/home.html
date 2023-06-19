@@ -12,32 +12,17 @@
         <h2>홈 화면</h2>
     </div>
     <div class="row">
-        <div class="col">
-            <button class="w-100 btn btn-secondary btn-lg" type="button"
-                    th:onclick="|location.href='@{/member/auth/signup}'|">
-                회원 가입
-            </button>
-        </div>
-        <div class="col">
-            <button class="w-100 btn btn-dark btn-lg"
-                    onclick="location.href='items.html'"
-                    th:onclick="|location.href='@{/member/auth/login}'|" type="button">
-                로그인
-            </button>
-        </div>
-
-
+        <img src="/img/main.png" alt="Main Image">
     </div>
 
     <div id="map" style="width:800px;height:600px;"></div>
     <p><em>지도를 클릭시 위도경도 표시!</em></p>
     <p id="result"></p>
     <hr class="my-4">
-</div> <!-- /container -->
-
-
-
+    <div th:replace="/footer.html"></div>
+</div>
 </body>
+
 <script type="text/javascript" src="//dapi.kakao.com/v2/maps/sdk.js?appkey=c61136f184803c883c07471fa66b3039&libraries=services,clusterer,drawing">
 </script>
 

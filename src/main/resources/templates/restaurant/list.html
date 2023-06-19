@@ -8,15 +8,13 @@
 </head>
 <body>
 <div class="container" style="max-width: 800px">
+    <div th:replace="/menuBar.html"></div>
+
     <div class="py-5 text-center">
         <h2>식당 리스트 </h2>
     </div>
     <div class="row">
-        <div class="col">
-            <button class="btn btn-primary float-end" onclick="location.href='addForm.html'"
-                    th:onclick="|location.href='@{/basic/items/add}'|"
-                    type="button">상품 등록</button>
-        </div>
+
     </div>
     <hr class="my-4">
     <div>
@@ -44,21 +42,22 @@
 
         <ul class="pagination">
             <li th:class="${list.number == 0} ? 'page-item disabled' : 'page-item'">
-                <a th:if="${list.number != 0}" th:href="@{/food/(page=${list.number - 1})}" class="page-link">Previous</a>
+                <a th:if="${list.number != 0}" th:href="@{/food(page=${list.number - 1})}" class="page-link">Previous</a>
 <!--                 첫번째 일경우 a 태그 비활성화 및 이름만 표시 -->
                 <span th:unless="${list.number != 0}" class="page-link">Previous</span>
             </li>
             <li th:each="pageNumber : ${#numbers.sequence(list.number - 5, list.number + 4)}"
                 th:class="${pageNumber == list.number} ? 'page-item active' : 'page-item'">
-                <a th:if="${pageNumber >= 0 && pageNumber < list.totalPages}" th:href="@{/food/(page=${pageNumber})}" class="page-link" th:text="${pageNumber + 1}"></a>
+                <a th:if="${pageNumber >= 0 && pageNumber < list.totalPages}" th:href="@{/food(page=${pageNumber})}" class="page-link" th:text="${pageNumber + 1}"></a>
             </li>
             <li th:class="${list.number == list.totalPages - 1} ? 'page-item disabled' : 'page-item'">
-                <a th:if="${list.number != list.totalPages - 1}" th:href="@{/food/(page=${list.number + 1})}" class="page-link">Next</a>
+                <a th:if="${list.number != list.totalPages - 1}" th:href="@{/food(page=${list.number + 1})}" class="page-link">Next</a>
                 <span th:unless="${list.number != list.totalPages - 1}" class="page-link">Next</span>
             </li>
         </ul>
 
     </div>
+
 </div> <!-- /container -->
 </body>
 </html>

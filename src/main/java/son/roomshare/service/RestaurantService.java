@@ -41,12 +41,10 @@ public class RestaurantService {
     @Transactional(readOnly = true)
     public RestaurantResponse getDetail(Long id){
 
-        log.info("여기까지오나?");
 
         Optional<Restaurant_basic> findRestaurant = basicRestaurantRepository.findOneById(id);
         Optional<Restaurant_detail> findDetailRestaurant = detailRestaurantRepository.findOneById(id);
 
-        log.info("머가문제냐?");
         if(findRestaurant.isPresent() && findDetailRestaurant.isPresent() ){
             Restaurant_basic restaurantBasic = findRestaurant.get();
             Restaurant_detail restaurantDetail = findDetailRestaurant.get();
