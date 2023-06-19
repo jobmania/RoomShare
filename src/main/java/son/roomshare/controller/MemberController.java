@@ -29,6 +29,8 @@ public class MemberController extends HomeController {
     private static final String AUTHORIZATION = "Authorization";
     private static final String REFRESH = "Refresh_Token";
 
+    private static final String DOMAIN = "localhost";
+
     private final MemberService memberService;
 
     @GetMapping("/auth/signup")
@@ -87,12 +89,15 @@ public class MemberController extends HomeController {
     }
 
 
-    @PostMapping("/logout")
+
+
+
+    @GetMapping("/logout")
     public String logout(HttpServletResponse response) {
         expireCookie(response, AUTHORIZATION);
         expireCookie(response, REFRESH);
         log.info("로그아웃완료!");
-        return "home";
+        return "redirect:/";
     }
 
     private static void setCookie(String name, String value, HttpServletResponse response) {
@@ -106,6 +111,9 @@ public class MemberController extends HomeController {
         Cookie cookie = new Cookie(cookieName, null);
 
         cookie.setMaxAge(0);
+        cookie.setPath("/"); // 쿠키의 경로 설졍!!
+        cookie.setDomain(DOMAIN); // 쿠키의 도메인 설정
+
         response.addCookie(cookie);
     }
 
