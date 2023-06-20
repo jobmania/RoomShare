@@ -19,14 +19,24 @@ public class MapService {
         // https://wildeveloperetrain.tistory.com/171
 
         //위도 1° = 지구 반지름 x 1° x 1rad(라디안)
-        my_latitude = 6371 * 1 * (Math.PI / 180);
-
-//경도 1° = 지구 반지름 x 1° x cos(위도) x 1rad(라디안)
-        my_longitude = 6371 * 1 * (Math.PI / 180) * Math.cos(Math.toRadians(35.8448));
-
+//        my_latitude = 6371 * 1 * (Math.PI / 180);
+//
+////경도 1° = 지구 반지름 x 1° x cos(위도) x 1rad(라디안)
+//        my_longitude = 6371 * 1 * (Math.PI / 180) * Math.cos(Math.toRadians(35.8448));
+//
 
 
 
         return null;
     }
+
+
+
+
+
+    Long getDistance(){
+        Long distance = 0L;
+        return distance;
+    }
+
 }

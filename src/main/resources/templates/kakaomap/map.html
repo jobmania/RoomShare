@@ -24,10 +24,14 @@
 
     </div>
 
+    <button class="w-100 btn btn-secondary btn-lg" type="button"
+            th:onclick="|location.href='@{/map/food}'|">
+        내 주변 맛집 보기!
+    </button>
 
 
     <div id="map" style="width:800px;height:600px;"></div>
-    <p><em>지도를 클릭시 위도경도 표시!</em></p>
+    <p><em> 위치 허용을 해주세요 </em></p>
     <p id="result"></p>
 
 
