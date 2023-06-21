@@ -19,7 +19,7 @@
 
   <div>
     <label for="itemId">식당 ID</label>
-    <span id="itemId" name="itemId" class="form-control">${item.id}</span>
+    <span id="itemId" name="itemId" class="form-control" th:text="${item.getRestaurant_basic().getId()}"></span>
   </div>
   <div>
     <label for="itemName">이름</label>

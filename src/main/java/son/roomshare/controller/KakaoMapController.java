@@ -4,15 +4,17 @@ import lombok.Builder;
 import lombok.Data;
 import lombok.Getter;
 import lombok.RequiredArgsConstructor;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Controller;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.ui.Model;
+import org.springframework.web.bind.annotation.*;
+import son.roomshare.domain.map.MapRequest;
 import son.roomshare.domain.map.MapResponse;
 import son.roomshare.service.MapService;
 
 import java.util.List;
 
+@Slf4j
 @Controller
 @RequestMapping("/map")
 @RequiredArgsConstructor
@@ -26,12 +28,15 @@ public class KakaoMapController extends HomeController {
     }
 
     @GetMapping("/food")
-    public String viewRestaurant(
-                                @RequestParam("latitude") Long latitude,
-                                @RequestParam("longitude") Long longitude,
-                                @RequestParam("distance")Long distance){
-       List<MapResponse> mapList =  mapService.getByDistance(latitude,longitude,distance);
+    public String viewRestaurant(@ModelAttribute MapRequest mapRequest, Model model){
 
+        Double latitude = Double.parseDouble(mapRequest.getLatitude());
+        Double longitude =  Double.parseDouble(mapRequest.getLongitude());
+        Double inputDistance = Double.valueOf(mapRequest.getDistance());
+
+       List<MapResponse> mapList =  mapService.getByDistance(latitude, longitude, inputDistance);
+
+        model.addAttribute("list", mapList);
         return "kakaomap/resultMap";
     }
 

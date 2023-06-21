@@ -6,7 +6,7 @@ import lombok.Data;
 @Builder
 @Data
 public class MapResponse{
-    private String name;
-    private Long latitude;
-    private Long longitude;
+    public String name;
+    public String latitude;
+    public String longitude;
 }

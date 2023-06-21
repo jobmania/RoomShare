@@ -6,6 +6,7 @@ import son.roomshare.domain.restaurant.Restaurant_basic;
 import javax.persistence.*;
 
 @Entity
+@Table(name = "my_restaurant_board")
 public class Board {
 
     @Id

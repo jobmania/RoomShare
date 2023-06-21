@@ -26,8 +26,8 @@ public class Restaurant_basic {
     @Column(name = "landnumber_address")
     private String landNumberAddress;
 
-    private String latitude;
-    private String longitude;
+    private Double latitude;
+    private Double longitude;
     private String phoneNumber;
     private String category;
     private String type;

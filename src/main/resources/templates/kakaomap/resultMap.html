@@ -1,10 +1,178 @@
-<!DOCTYPE html>
-<html lang="en">
+<!DOCTYPE HTML>
+<html xmlns:th="http://www.thymeleaf.org" lang="">
 <head>
+    <meta charset="utf-8">
+    <link th:href="@{/css/bootstrap.min.css}"
+          href="css/bootstrap.min.css" rel="stylesheet">
+
+
     <meta charset="UTF-8">
-    <title>Title</title>
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Geolocation example - watchPosition()</title>
+
+
+
 </head>
 <body>
+<div class="container" style="max-width: 800px">
+    <div th:replace="/menuBar.html"></div>
 
+    <div class="py-5 text-center">
+        <h2> 지도 화면</h2>
+        <h3 id="location-info">현재 나의 위치는?</h3>
+
+    </div>
+
+    <div id="map" style="width:800px;height:600px;"></div>
+    <p><em> 위치 허용을 해주세요 </em></p>
+    <p id="result"></p>
+
+
+    <form id="location-form" onsubmit="submitForm(event)">
+        <label for="distance">거리 (m):</label>
+        <input type="text" id="distance" name="distance" required>
+        <br>
+        <button type="submit">내 주변 맛집을 보자</button>
+    </form>
+
+    <hr class="my-4">
+    <div th:replace="/footer.html"></div>
+</div>
 </body>
+
+<script type="text/javascript" src="//dapi.kakao.com/v2/maps/sdk.js?appkey=c61136f184803c883c07471fa66b3039&libraries=services,clusterer,drawing">
+</script>
+
+<script th:inline="javascript">
+
+    /* 지도 생성 */
+
+    let my_latitude;
+    let my_longitude;
+    let mapContainer; // 전역 범위에 mapContainer 변수를 정의
+    var mapOption;
+    var map;
+    var marker;
+    var infowindow;
+
+    var imageSrc = "https://t1.daumcdn.net/localimg/localimages/07/mapapidoc/markerStar.png"; // 마커 이미지
+    var imageSize = new kakao.maps.Size(24, 35); // 마커 사이즈
+    var positions = [];
+
+
+    let map_title
+    let map_latitude
+    let map_longitude
+
+    function success(position) {
+        // 현재 나의 좌표 지정하기
+        my_latitude = position.coords.latitude;
+        my_longitude = position.coords.longitude;
+
+        // 좌표가 할당된 후에 지도 생성
+        createMap();
+
+        // 서버에서 받아온 위치 정보를 기반으로 positions 배열 생성
+        createPositions();
+    }
+
+    function createMap() {
+        mapContainer = document.getElementById('map'); // 전역적으로 정의된 mapContainer 변수에 할당
+        mapOption = {
+            center: new kakao.maps.LatLng(my_latitude, my_longitude),
+            level: 3,
+            mapTypeId: kakao.maps.MapTypeId.ROADMAP
+        };
+
+        // 지도 생성
+        map = new kakao.maps.Map(mapContainer, mapOption);
+
+        // 마커 생성
+        marker = new kakao.maps.Marker({
+            position: new kakao.maps.LatLng(my_latitude, my_longitude), // 마커의 좌표
+            map: map // 마커를 표시할 지도 객체
+        });
+
+        // 인포윈도우 생성
+        infowindow = new kakao.maps.InfoWindow({
+            content: '<div style="padding:5px;">나의 현재위치 :D</div>' // 인포윈도우에 표시할 내용
+        });
+
+        // 인포윈도우를 마커에 연결하여 표시
+        infowindow.open(map, marker);
+
+    }
+
+    function error() {
+        alert("죄송합니다. 위치 정보를 사용할 수 없습니다.");
+    }
+
+    const options = {
+        enableHighAccuracy: true,
+        maximumAge: 30000,
+        timeout: 27000
+    };
+
+    navigator.geolocation.getCurrentPosition(success, error, options);
+
+
+    function submitForm(event) {
+        event.preventDefault();
+
+        // 입력된 값 가져오기
+        const distance = document.getElementById('distance').value;
+
+        // 서버로 이동할 URL 생성
+        const url = `/map/food?longitude=${my_longitude}&latitude=${my_latitude}&distance=${distance}`;
+
+        // URL로 이동
+        location.href = url;
+    }
+
+
+
+    function createPositions() {
+        // 서버에서 받아온 정보를 기반으로 positions 배열 생성
+
+        /*[# th:each="position, stat : ${list}"]*/
+        map_title = /*[[${position.name}]]*/;
+        map_latitude = /*[[${position.latitude}]]*/;
+        map_longitude = /*[[${position.longitude}]]*/;
+
+        var position = {
+            title: map_title, // name 필드 값으로 title 설정
+            latlng: new kakao.maps.LatLng(map_latitude, map_longitude) // latitude와 longitude로 LatLng 객체 생성
+        };
+        console.log(position)
+        positions.push(position);
+        /*[/]*/
+
+        // positions 배열을 기반으로 마커 생성
+        createMarkers();
+    }
+
+    function createMarkers() {
+        for (var i = 0; i < positions.length; i++) {
+
+
+            var markerImage = new kakao.maps.MarkerImage(imageSrc, imageSize);
+
+            var marker = new kakao.maps.Marker({
+                map: map,
+                position: positions[i].latlng,
+                title: positions[i].title,
+                image: markerImage
+            });
+        }
+    }
+
+
+
+
+
+
+</script>
+
+
 </html>

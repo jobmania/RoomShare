@@ -20,4 +20,5 @@ public interface BasicRestaurantRepository extends JpaRepository<Restaurant_basi
     Page<Restaurant_basic> findByLandNumberAddressContainingIgnoreCase(String keyword, Pageable pageable);
 
 
+    List<Restaurant_basic> findByLongitudeBetweenAndLatitudeBetween(double minX, double maxX, double minY, double maxY);
 }
