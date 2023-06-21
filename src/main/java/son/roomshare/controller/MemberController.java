@@ -5,7 +5,9 @@ import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.authentication.BadCredentialsException;
+import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
 import org.springframework.validation.ObjectError;
 import org.springframework.validation.annotation.Validated;
@@ -13,8 +15,11 @@ import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 import son.roomshare.config.security.jwt.TokenDto;
 import son.roomshare.config.security.jwt.TokenRequestDto;
+import son.roomshare.domain.member.Member;
+import son.roomshare.domain.member.MemberDetailsImpl;
 import son.roomshare.domain.member.MemberRole;
 import son.roomshare.domain.member.dto.LoginMemberRequestDto;
+import son.roomshare.domain.member.dto.MemberResponseDto;
 import son.roomshare.domain.member.dto.SignUpMemberRequestDto;
 import son.roomshare.service.MemberService;
 
@@ -97,6 +102,16 @@ public class MemberController extends HomeController {
         expireCookie(response, REFRESH);
         log.info("로그아웃완료!");
         return "redirect:/";
+    }
+
+
+    @GetMapping("/profile")
+    public String findMember(@AuthenticationPrincipal MemberDetailsImpl memberDetails, Model model) {
+        log.info("memberDetails ={}",memberDetails.getMember().getEmail());
+        Member member = memberDetails.getMember();
+        MemberResponseDto memberInfoByEmail = memberService.findMemberInfoByEmail(member.getEmail());
+        model.addAttribute("member", member);
+        return "member/profile";
     }
 
     private static void setCookie(String name, String value, HttpServletResponse response) {
