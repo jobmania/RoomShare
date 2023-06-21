@@ -24,16 +24,17 @@
 
     </div>
 
-    <button class="w-100 btn btn-secondary btn-lg" type="button"
-            th:onclick="|location.href='@{/map/food}'|">
-        내 주변 맛집 보기!
-    </button>
-
-
     <div id="map" style="width:800px;height:600px;"></div>
     <p><em> 위치 허용을 해주세요 </em></p>
     <p id="result"></p>
 
+
+    <form id="location-form" onsubmit="submitForm(event)">
+        <label for="distance">거리 (m):</label>
+        <input type="text" id="distance" name="distance" required>
+        <br>
+        <button type="submit">내 주변 맛집을 보자</button>
+    </form>
 
     <hr class="my-4">
     <div th:replace="/footer.html"></div>
@@ -104,6 +105,18 @@
     navigator.geolocation.getCurrentPosition(success, error, options);
 
 
+    function submitForm(event) {
+        event.preventDefault();
+
+        // 입력된 값 가져오기
+        const distance = document.getElementById('distance').value;
+
+        // 서버로 이동할 URL 생성
+        const url = `/map/food?longitude=${my_longitude}&latitude=${my_latitude}&distance=${distance}`;
+
+        // URL로 이동
+        location.href = url;
+    }
 
 
 
