@@ -31,7 +31,8 @@
 
     <form id="location-form" onsubmit="submitForm(event)">
         <label for="distance">거리 (m):</label>
-        <input type="text" id="distance" name="distance" required>
+        <input type="text" id="distance" name="distance" required th:field="${mapRequest.distance}" th:errorclass="field-error">
+        <div class="field-error" th:errors="${mapRequest.distance}"></div>
         <br>
         <button type="submit">내 주변 맛집을 보자</button>
     </form>
