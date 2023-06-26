@@ -22,6 +22,7 @@ import son.roomshare.repository.RefreshTokenRepository;
 
 import javax.servlet.http.Cookie;
 import javax.servlet.http.HttpServletResponse;
+import java.util.Optional;
 
 @Service
 @Slf4j
@@ -134,4 +135,15 @@ public class MemberService {
         }
     }
 
+    @Transactional
+    public void updateImageFile(Member member, String savedToDbName) {
+        Optional<Member> findMember = memberRepository.findByEmail(member.getEmail());
+        if(findMember.isPresent()){
+            Member getMember = findMember.get();
+            getMember.updateImage(savedToDbName);
+            /// 세이브를 안해도 더티체킹으로 update를 시켜준다.
+        }
+
+
+    }
 }

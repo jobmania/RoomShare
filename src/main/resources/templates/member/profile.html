@@ -13,6 +13,26 @@
 
 
 
+  <div>
+    <li>" <span th:text="${member.getNickName()}"></span>" 은 너의 이름이다 반갑다!</li>
+
+
+    <form action="/upload" method="post" enctype="multipart/form-data">
+      <ul>
+        <li>프로필 사진 업로드<input type="file" name="file" ></li>
+      </ul>
+      <input type="submit"/>
+    </form>
+
+
+
+    소개글
+  </div>
+
+  <div>
+    북마크 목록
+
+  </div>
 
 
 

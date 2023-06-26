@@ -31,9 +31,19 @@ spring:
       ansi:
           enabled: always
 
+
+    servlet:
+            multipart:
+                max-file-size: 1MB
+                max-request-size: 10MB
+
 logging:
     level:
         son: debug
 
 jwt:
     secret: c3ByaW5nLWJvb3Qtc2VjdXJpdHktand0LXR1dG9yaWFsLWppd29vbi1zcHJpbmctYm9vdC1zZWN1cml0eS1qd3QtdHV0b3JpYWwK
+
+
+file:
+    dir: C:/Users/admin/test/

@@ -3,6 +3,7 @@ package son.roomshare.domain.member;
 import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
+import org.springframework.web.multipart.MultipartFile;
 
 import javax.persistence.*;
 
@@ -45,6 +46,16 @@ public class Member {
         this.nickName = nickName;
         this.password = password;
         this.memberRole = memberRole;
+    }
+
+
+
+    @Column(nullable = true)
+    private String imageFile;
+
+
+    public void updateImage(String fileName){
+        this.imageFile = fileName;
     }
 
 }
