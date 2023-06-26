@@ -3,37 +3,41 @@ package son.roomshare.domain.restaurant;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
+import lombok.Setter;
+import org.hibernate.annotations.Type;
+import son.roomshare.converter.YesNoConverter;
 
-import javax.persistence.Column;
-import javax.persistence.Entity;
-import javax.persistence.Id;
-import javax.persistence.Table;
+import javax.persistence.*;
 
 @Entity
 @Table(name = "restaurant_detail")
 @NoArgsConstructor
 @AllArgsConstructor
 @Getter
+//@Setter
 public class Restaurant_detail {
 
     @Id
     Long id;
 
-    private String parkingAvailable;
-    private String wifiAvailable;
-    private String kidsRoomAvailable;
-    private String multilingualMenuAvailable;
-    private String toiletInfoAvailable;
+
+    @Convert(converter = YesNoConverter.class)
+    private Boolean parkingAvailable;
+    private Boolean wifiAvailable;
+
+    private Boolean kidsRoomAvailable;
+    private Boolean multilingualMenuAvailable;
+    private Boolean toiletInfoAvailable;
     private String holidayInfo;
     private String businessHourInfo;
     @Column(name = "parcel_sale_service_available")
-    private String parcelService;
+    private Boolean parcelService;
 
     @Column(name = "barrier_free_available")
-    private String barrierFree;
+    private Boolean barrierFree;
 
     @Column(name = "delivery_available")
-    private String deliveryService;
+    private Boolean deliveryService;
 
     @Column(name = "reservation_available")
     private String reservation;
@@ -49,11 +53,11 @@ public class Restaurant_detail {
     private String landmarkLongitude;
 
     @Column(name = "kiosk_available")
-    private String kiosk;
+    private Boolean kiosk;
 
     @Column(name = "mobilepay_available")
-    private String mobile;
+    private Boolean mobile;
     @Column(name = "smartorder_available")
-    private String smartOrder;
+    private Boolean smartOrder;
 
 }

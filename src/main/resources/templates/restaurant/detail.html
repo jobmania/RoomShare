@@ -40,6 +40,12 @@
        </span>
     </span>
   </div>
+  <div>
+    <label for="parkingAvailable">주차 가능 여부</label>
+    <span id="parkingAvailable" name="parkingAvailable" class="form-control" th:text="${(item.getRestaurant_detail().getParkingAvailable() == true) ? '가능' : '불가능'}"></span>
+
+  </div>
+
 
 
   <hr class="my-4">
@@ -49,7 +55,7 @@
               onclick="location.href='editForm.html'"
 
               th:onclick="|location.href='@{/basic/items/{itemId}/edit(itemId=${item.id})}'|"
-              type="button">상품 수정</button>
+              type="button">수정</button>
     </div>
     <div class="col">
       <button class="w-100 btn btn-secondary btn-lg"
@@ -62,4 +68,5 @@
 
 </div> <!-- /container -->
 </body>
+
 </html>

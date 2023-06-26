@@ -10,6 +10,6 @@ public class MapRequest {
     private String latitude;
     private String longitude;
 
-    @Range(max = 1000)
+    @Range(max = 3000)
     private Long distance;
 }

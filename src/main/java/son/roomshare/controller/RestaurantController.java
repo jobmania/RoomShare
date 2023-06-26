@@ -1,6 +1,7 @@
 package son.roomshare.controller;
 
 import lombok.RequiredArgsConstructor;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.data.domain.Page;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -15,6 +16,7 @@ import son.roomshare.service.RestaurantService;
 @Controller
 @RequiredArgsConstructor
 @RequestMapping("/food")
+@Slf4j
 public class RestaurantController extends HomeController{
 
     private final RestaurantService restaurantService;
@@ -35,6 +37,8 @@ public class RestaurantController extends HomeController{
     private String getDetail( @PathVariable("id") Long id, Model model){
         RestaurantResponse response = restaurantService.getDetail(id);
         model.addAttribute("item", response);
+        log.info("parking={}",  response.getRestaurant_detail().getParkingAvailable());
+
         return "restaurant/detail";
     }
 
