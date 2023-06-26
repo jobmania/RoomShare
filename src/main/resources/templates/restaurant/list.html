@@ -5,6 +5,15 @@
     <!--   절대경로로 바꾸기 -->
     <link th:href="@{/css/bootstrap.min.css}"
           href="../css/bootstrap.min.css" rel="stylesheet">
+
+
+
+    <style>
+        .form-check {
+            display: inline-block;
+            margin-right: 20px; /* 원하는 간격으로 조정합니다. */
+        }
+    </style>
 </head>
 <body>
 <div class="container" style="max-width: 800px">
@@ -43,6 +52,30 @@
             <option value="false" th:selected="${param.asc == 'false'}">최신순</option>
         </select>
         <button type="submit" class="ico_16px search">Search</button>
+
+        <div style="display: flex;">
+            <div class="form-check">
+                <input type="checkbox" id="park" th:field="${request.isPark}" class="form-check-input"  th:checked="${request.isPark}">
+                <label for="park" class="form-check-label">  주차 가능  </label>
+            </div>
+
+            <div class="form-check">
+                <input type="checkbox" id="pet" th:field="${request.isPet}" class="form-check-input"  th:checked="${request.isPet}">
+                <label for="pet" class="form-check-label">  동물 가능  </label>
+            </div>
+
+            <div class="form-check">
+                <input type="checkbox" id="multilingual" th:field="${request.isMultiLingual}"  class="form-check-input"  th:checked="${request.isMultiLingual}">
+                <label for="multilingual" class="form-check-label">  다국어 지원  </label>
+            </div>
+
+            <div class="form-check">
+                <input type="checkbox" id="delivery" th:field="${request.isDelivery}"  class="form-check-input"  th:checked="${request.isDelivery}">
+                <label for="delivery" class="form-check-label">  배달 가능  </label>
+            </div>
+        </div>
+
+
     </form>
 
     <div>
