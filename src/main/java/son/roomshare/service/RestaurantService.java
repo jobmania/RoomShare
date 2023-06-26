@@ -71,5 +71,11 @@ public class RestaurantService {
 
 
 
+    @Transactional(readOnly = true)
+    public  Page<Restaurant_basic> getDetailList(){
+
+        return null;
+    }
+
 
 }

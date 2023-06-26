@@ -32,11 +32,8 @@ public class RestaurantController extends HomeController{
                              @RequestParam(value = "isPet", defaultValue = "false") Boolean isPet,
                              @RequestParam(value = "isMultiLingual", defaultValue = "false") Boolean isMultiLingual,
                              @RequestParam(value = "isDelivery", defaultValue = "false") Boolean isDelivery,
-
-
                              Model model){
-        Page<Restaurant_basic> allList = restaurantService.getAllList(page, sort, isAsc, keyword, target);
-        model.addAttribute("list", allList);
+
 
         RestaurantOptionRequestDto request = new RestaurantOptionRequestDto();
         request.setIsPark(isPark);
@@ -44,6 +41,12 @@ public class RestaurantController extends HomeController{
         request.setIsMultiLingual(isMultiLingual);
         request.setIsDelivery(isDelivery);
         model.addAttribute("request", request);
+
+
+        Page<Restaurant_basic> allList = restaurantService.getAllList(page, sort, isAsc, keyword, target);
+        model.addAttribute("list", allList);
+
+
         return "restaurant/list";
     }
 
