@@ -43,20 +43,34 @@
   <div>
     <label for="parkingAvailable">주차 가능 여부</label>
     <span id="parkingAvailable" name="parkingAvailable" class="form-control" th:text="${(item.getRestaurant_detail().getParkingAvailable() == true) ? '가능' : '불가능'}"></span>
-
   </div>
+  <div>
+    <label for="petAvailable">동물 가능 여부</label>
+    <span id="petAvailable" name="petAvailable" class="form-control" th:text="${(item.getRestaurant_detail().getPetAvailable() == true) ? '가능' : '불가능'}"></span>
+  </div>
+  <div>
+    <label for="multiLingualAvailable">다국어 지원 여부</label>
+    <span id="multiLingualAvailable" name="multiLingualAvailable" class="form-control" th:text="${(item.getRestaurant_detail().getMultilingualMenuAvailable() == true) ? '가능' : '불가능'}"></span>
+  </div>
+  <div>
+    <label for="deliveryAvailable">배달 가능 여부</label>
+    <span id="deliveryAvailable" name="deliveryAvailable" class="form-control" th:text="${(item.getRestaurant_detail().getDeliveryService() == true) ? '가능' : '불가능'}"></span>
+  </div>
+
+
+
 
 
 
   <hr class="my-4">
   <div class="row">
-    <div class="col">
-      <button class="w-100 btn btn-primary btn-lg"
-              onclick="location.href='editForm.html'"
+<!--    <div class="col">-->
+<!--      <button class="w-100 btn btn-primary btn-lg"-->
+<!--              onclick="location.href='editForm.html'"-->
 
-              th:onclick="|location.href='@{/basic/items/{itemId}/edit(itemId=${item.id})}'|"
-              type="button">수정</button>
-    </div>
+<!--              th:onclick="|location.href='@{/basic/items/{itemId}/edit(itemId=${item.id})}'|"-->
+<!--              type="button">수정</button>-->
+<!--    </div>-->
     <div class="col">
       <button class="w-100 btn btn-secondary btn-lg"
               onclick="location.href='items.html'"
