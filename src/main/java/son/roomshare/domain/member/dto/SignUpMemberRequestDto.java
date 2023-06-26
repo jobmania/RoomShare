@@ -39,5 +39,6 @@ public class SignUpMemberRequestDto {
                 .build();
     }
 
+    private String adminPassword;
 
 }

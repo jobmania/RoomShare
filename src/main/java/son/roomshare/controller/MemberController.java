@@ -35,6 +35,7 @@ public class MemberController extends HomeController {
     private static final String REFRESH = "Refresh_Token";
 
     private static final String DOMAIN = "localhost";
+    private static final String ADMINPASSWORD = "admin1234";
 
     private final MemberService memberService;
 
@@ -52,6 +53,15 @@ public class MemberController extends HomeController {
             return "login/signForm";
         }
 
+        // 관리자 회원가입 일시 검사
+        if(MemberRole.관리자.equals(dto.getMemberRole())){
+            if(!dto.getAdminPassword().equals(ADMINPASSWORD)){
+                bindingResult.addError(new ObjectError("admin","관리자 비밀번호가 맞지 않다!"));
+                return "login/signForm";
+            }
+        }
+
+
         try {
             memberService.signup(dto);
         } catch (DuplicateRequestException e) { // 중복된 내용 있을시 처리!
@@ -61,6 +71,8 @@ public class MemberController extends HomeController {
 
         return "redirect:/";
     }
+
+
 
     @GetMapping("/auth/login")
     public String loginForm(@ModelAttribute("member") LoginMemberRequestDto dto){

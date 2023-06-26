@@ -4,7 +4,6 @@ import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
-import org.hibernate.annotations.Type;
 import son.roomshare.converter.YesNoConverter;
 
 import javax.persistence.*;
@@ -14,18 +13,17 @@ import javax.persistence.*;
 @NoArgsConstructor
 @AllArgsConstructor
 @Getter
-//@Setter
+@Setter
 public class Restaurant_detail {
 
     @Id
     Long id;
 
-
-    @Convert(converter = YesNoConverter.class)
+//    @Convert(converter = YesNoConverter.class)
     private Boolean parkingAvailable;
     private Boolean wifiAvailable;
-
     private Boolean kidsRoomAvailable;
+    private Boolean petAvailable;
     private Boolean multilingualMenuAvailable;
     private Boolean toiletInfoAvailable;
     private String holidayInfo;

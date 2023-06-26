@@ -56,13 +56,17 @@
         <div>
             <div>회원 종류</div>
             <div th:each="type, status : ${memberType}" class="form-check form-check-inline">
-                <input type="radio" th:field="*{memberRole}" th:value="${type.name()}" class="form-check-input">
+                <input type="radio" th:field="*{memberRole}" th:value="${type.name()}" class="form-check-input" onclick="togglePasswordField(this)">
                 <label th:for="${'memberType_' + status.index}" th:text="${type.name()}" class="form-check-label">  빈칸  </label>
             </div>
             <div class="field-error" th:errors="*{memberRole}"></div>
         </div>
 
-
+        <!-- Password field -->
+        <div id="passwordField" style="display: none;">
+            <label for="adminPassword">관리자 비밀번호</label>
+            <input type="password" id="adminPassword" name="adminPassword" class="form-control">
+        </div>
 
 
 
@@ -105,6 +109,16 @@
         } else {
             passwordCheck.setCustomValidity('');
             errorDiv.textContent = '';
+        }
+    }
+
+
+    function togglePasswordField(radio) {
+        var passwordField = document.getElementById("passwordField");
+        if (radio.value === "관리자") {
+            passwordField.style.display = "block";
+        } else {
+            passwordField.style.display = "none";
         }
     }
 
