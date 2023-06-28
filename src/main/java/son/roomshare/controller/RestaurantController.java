@@ -43,7 +43,7 @@ public class RestaurantController extends HomeController{
         model.addAttribute("request", request);
 
 
-        Page<Restaurant_basic> allList = restaurantService.getAllList(page, sort, isAsc, keyword, target);
+        Page<Restaurant_basic> allList = restaurantService.getAllList(page, sort, isAsc, keyword, target, request);
         model.addAttribute("list", allList);
 
 

@@ -119,10 +119,11 @@ public class MemberController extends HomeController {
 
     @GetMapping("/profile")
     public String findMember(@AuthenticationPrincipal MemberDetailsImpl memberDetails, Model model) {
-        log.info("memberDetails ={}",memberDetails.getMember().getEmail());
+
         Member member = memberDetails.getMember();
         MemberResponseDto memberInfoByEmail = memberService.findMemberInfoByEmail(member.getEmail());
         model.addAttribute("member", member);
+        log.info("memberimageFile ={}",member.getImageFile());
         return "member/profile";
     }
 

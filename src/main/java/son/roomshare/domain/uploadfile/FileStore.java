@@ -11,7 +11,7 @@ import java.io.IOException;
 import java.util.UUID;
 
 @Component
-@PropertySource(value = "classpath:application-secret.yml")
+@PropertySource(value = "classpath:application.yml")
 public class FileStore {
 
     @Value("${file.dir}")
@@ -29,7 +29,7 @@ public class FileStore {
         String originalFilename = multipartFile.getOriginalFilename();
         String storeFileName = createStoreFileName(originalFilename);
         multipartFile.transferTo(new File(getFullPath(storeFileName)));
-        return getFullPath(storeFileName);
+        return storeFileName;
     }
 
     private String createStoreFileName(String originalFilename) {

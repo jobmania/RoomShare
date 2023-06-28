@@ -13,9 +13,11 @@
 
 
 
-  <div>
+  <div class="container" style="max-width: 800px">
     <li>" <span th:text="${member.getNickName()}"></span>" 은 너의 이름이다 반갑다!</li>
 
+
+    <img  th:src="@{'/upload/'+${member.getImageFile()}}" width="300" height="300"/>
 
     <form action="/upload" method="post" enctype="multipart/form-data">
       <ul>
@@ -25,11 +27,10 @@
     </form>
 
 
-
-    소개글
   </div>
 
   <div>
+    소개글
     북마크 목록
 
   </div>
