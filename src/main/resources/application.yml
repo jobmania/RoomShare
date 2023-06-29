@@ -1,29 +1,16 @@
 spring:
 
-#    h2:
-#        console:
-#             enabled: true
-
     datasource:
-#        url: jdbc:h2:tcp://localhost/~/testdb
-#        driver-class-name: org.h2.Driver
-#        username: sa
-#        password:
 #        ?createDatabaseIfNotExist=true -> 존재 하지 않으면 생성
-#        url: jdbc:mysql://localhost:3306/roomshare?createDatabaseIfNotExist=true
-        url: jdbc:mariadb://svc.sel4.cloudtype.app:30385/roomshare?createDatabaseIfNotExist=true
+        url: jdbc:mysql://localhost:3306/roomshare?createDatabaseIfNotExist=true
 #        driver-class-name: com.mysql.cj.jdbc.Driver
+#        url: jdbc:mariadb://svc.sel4.cloudtype.app:30385/roomshare?createDatabaseIfNotExist=true
         username: root
         password: test1234
 
     jpa:
-#        database-platform: org.hibernate.dialect.H2Dialect
         hibernate:
             ddl-auto: update
-#        properties:
-#            hibernate:
-#                format_sql: true
-#                show_sql: true
 
     profiles:
         include: secret
@@ -31,7 +18,6 @@ spring:
     output:
       ansi:
           enabled: always
-
 
     servlet:
             multipart:
