@@ -38,8 +38,6 @@ public class RestaurantService {
 
         // Option이 존재한다면 일대일 연관관계의 detail에서 해당에 맞는 것을 찾아야된느 부분도 존재. !
 
-
-
         // 이부분도 동적 쿼리 가능성
         // Select from TABLE WHERE name = ?
         // Select from TABLE WHERE address = ?
