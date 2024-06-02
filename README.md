@@ -1,4 +1,4 @@
-# roomshare
+# roomshare (부산 풀코스)
 - 여행 추천 서비스 
 
 # 기술 ver
